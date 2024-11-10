@@ -2,5 +2,9 @@
   {
     "type": "sqlite",
     "path": "/home/zubair/learn/laravel/inertia-react/react-tester/database/database.sqlite"
+  },
+  {
+    "type": "sqlite",
+    "path": "/home/zubair/projects/lazar/lazarapp-laravel/database/database.sqlite"
   }
 ]

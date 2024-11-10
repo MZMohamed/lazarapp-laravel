@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\JobSite;
+use App\Models\VehicleType;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -12,10 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dumping_location_sheet_numbers', function (Blueprint $table) {
+        Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(JobSite::class, 'jobId')->constrained()->onDelete('cascade'); // Adding a foreign key with cascade delete
-            $table->string('sheetNumber', 1000);
+            $table->string('registration', 50)->nullable(false); // VARCHAR(50) NOT NULL
+            $table->string('name', 45)->nullable(); // VARCHAR(45), allows null
+            $table->foreignIdFor(VehicleType::class)->constrained();
 
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dumping_location_sheet_numbers');
+        Schema::dropIfExists('vehicles');
     }
 };
