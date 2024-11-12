@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Inertia\Inertia;
-use Illuminate\Http\Request;
+use App\Models\Group;
 use Inertia\Response;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -36,7 +37,14 @@ class UserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Users/Create');
+        return Inertia::render('Users/Create', [
+            'groups' => Group::all()->map(function ($group) {
+                return [
+                    'id' => $group->id,
+                    'name' => $group->name
+                ];
+            })
+        ]);
     }
 
     /**
@@ -48,15 +56,16 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'password' => 'required|string|min:8',
             'email' => 'required|email|unique:users,email',
-            'group' => 'required|string',
+            'group' => 'required|integer',
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $validated['name'],
             'password' => bcrypt($validated['password']),
             'email' => $validated['email'],
-            'group' => $validated['group'],
         ]);
+
+        $user->groups()->attach($validated['group']);
 
         return redirect()->route('users.index')->with('success', 'User created successfully.');
     }

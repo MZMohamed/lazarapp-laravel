@@ -1,8 +1,5 @@
-import "../css/app.css";
-import "./bootstrap";
-
-// customize mui theme
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+// import "../css/app.css";
+// import "./bootstrap";
 
 import { createInertiaApp } from "@inertiajs/react";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
@@ -20,20 +17,7 @@ createInertiaApp({
     setup({ el, App, props }) {
         const root = createRoot(el);
 
-        const theme = createMuiTheme({
-            palette: {
-                primary: { main: "#333132" },
-                secondary: {
-                    main: "#40ae49",
-                },
-            },
-        });
-
-        root.render(
-            <ThemeProvider theme={theme}>
-                <App {...props} />
-            </ThemeProvider>
-        );
+        root.render(<App {...props} />);
     },
     progress: {
         color: "#4B5563",

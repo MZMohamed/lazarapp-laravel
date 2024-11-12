@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import MaterialUiLayout from "@/Layouts/MaterialUiLayout";
 import { usePage, Head } from '@inertiajs/react'
-import Header from "@/Components/app/Header";
 
 import { router } from '@inertiajs/react'
 
@@ -11,6 +9,7 @@ import CreateJobFormContainer from "@/Components/app/admin/jobs/CreateJobFormCon
 //mui
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Typography, InputLabel, FormControl, Select, MenuItem   } from '@material-ui/core'
+import MaterialUiLayout from '@/Layouts/MaterialUiLayout';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,7 +42,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const UserCreate = () => {
-    const { user } = usePage().props.auth
+    const { groups } = usePage().props
     const classes = useStyles();
 
     // const [group, setGroup] = useState('');
@@ -90,16 +89,18 @@ const UserCreate = () => {
     const handleSubmit = event => {
         event.preventDefault();
 
-        console.log('clicked');
         router.post('/users', values);
 
         // setValues({ name: "", password: "", phone: "", email: "", group: "" });
     }
 
+    const groupList = groups.map(group => (
+        <MenuItem key={group.id} value={group.id}>{group.name}</MenuItem>
+    ))
+
     return (
-      <MaterialUiLayout>
+      <>
         <Head title="Create User" />
-        <Header user={user} />
         <Typography variant="h5" color='secondary'>Create User</Typography>
         <form
           className={classes.root}
@@ -144,9 +145,7 @@ const UserCreate = () => {
               value={values.group}
               onChange={handleChange}
             >
-              <MenuItem value={"admin"}>Admin</MenuItem>
-              <MenuItem value={"driver"}>Driver</MenuItem>
-              <MenuItem value={"client"}>Client</MenuItem>
+              {groups.length > 0 ? groupList : <MenuItem value='None'>Create a Group</MenuItem>}
             </Select>
           </FormControl>
           <TextField
@@ -161,8 +160,10 @@ const UserCreate = () => {
           <input type="submit" value="Create User" className={classes.submitButton}/>
           </CreateJobFormContainer>
         </form>
-      </MaterialUiLayout>
+      </>
     );
 }
+
+UserCreate.layout = page => <MaterialUiLayout children={page} />
 
 export default UserCreate

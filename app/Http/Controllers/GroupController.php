@@ -19,8 +19,8 @@ class GroupController extends Controller
                     'id' => $group->id,
                     'name' => $group->name,
                     'edit_url' => route('groups.edit', $group),
-                    'GroupCreateDate' => $group->created_at,
-                    'GroupLastModifiedDate' => $group->updated_at,
+                    'groupCreateDate' => $group->created_at,
+                    'groupLastModifiedDate' => $group->updated_at,
                 ];
             }),
             'create_url' => route('groups.create'),
@@ -48,7 +48,7 @@ class GroupController extends Controller
             'name' => $validated['name']
         ]);
 
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
+        return redirect()->route('groups.index')->with('success', 'Group created successfully.');
     }
 
     /**

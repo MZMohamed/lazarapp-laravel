@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { usePage } from "@inertiajs/react";
 import { Link as NavLink } from "@inertiajs/react";
 import "@/../css/print.css";
 
@@ -52,7 +53,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Header = ({ user }) => {
+const Header = () => {
+
+    const { user } = usePage().props.auth;
+
     const classes = useStyles();
     const [state, setState] = useState({
         left: false,

@@ -1,6 +1,5 @@
 import MaterialUiLayout from "@/Layouts/MaterialUiLayout";
 import { usePage, Head } from "@inertiajs/react";
-import Header from "@/Components/app/Header";
 //date-fns
 import { format } from "date-fns";
 
@@ -50,8 +49,7 @@ const useStyles = makeStyles((theme) => ({
 // this page should only be accessible by an admin user
 
 const Index = () => {
-    const { groups, auth } = usePage().props;
-    const user = auth.user;
+    const { groups } = usePage().props;
 
     // console.log(groups);
     const classes = useStyles();
@@ -79,7 +77,6 @@ const Index = () => {
     return (
         <MaterialUiLayout>
             <Head title="groups" />
-            <Header user={user} />
             <Paper className={classes.tableBackground}>
                 <Typography variant="h6">Groups</Typography>
                 <TableContainer component={Paper} className={classes.table}>
