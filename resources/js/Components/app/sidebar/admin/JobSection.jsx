@@ -1,13 +1,7 @@
 import React, {useState} from 'react'
-
-//router
-import {
-  NavLink
-} from "react-router-dom";
-
-//mui
-
 import { makeStyles } from '@material-ui/core/styles';
+
+import { Link as NavLink } from '@inertiajs/react'
 
 //mui-drawer
 import {
@@ -81,19 +75,11 @@ const JobSection = ({toggleDrawer}) => {
 
     return (
       <div>
-        
-        <ListItem button onClick={handleClick}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText primary="Manage Jobs" />
-          {menuOpen ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={menuOpen} timeout="auto" unmountOnExit>
+
+
           <List component="div" disablePadding>
             <NavLink
-              exact
-              to="/admin/jobs"
+              href="/jobs"
               style={{
                 textDecoration: "none"
               }}
@@ -111,27 +97,7 @@ const JobSection = ({toggleDrawer}) => {
             </NavLink>
 
             <NavLink
-              exact
-              to="/admin/jobs/new"
-              style={{
-                textDecoration: "none"
-              }}
-            >
-              <ListItem
-                button
-                className={classes.nested}
-                onClick={toggleDrawer('left', false)}
-              >
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
-                <ListItemText primary="Create Jobs" />
-              </ListItem>
-            </NavLink>
-
-            <NavLink
-              exact
-              to="/admin/jobs/entities"
+              href="/jobs/entities"
               style={{
                 textDecoration: "none"
               }}
@@ -148,10 +114,8 @@ const JobSection = ({toggleDrawer}) => {
               </ListItem>
             </NavLink>
           </List>
-        </Collapse>
       </div>
     );
 }
 
 export default JobSection
-    

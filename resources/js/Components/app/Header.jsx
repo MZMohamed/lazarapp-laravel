@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import "../print.css";
+import { Link as NavLink } from '@inertiajs/react'
+import "@/../css/print.css";
 
-//router
-import { NavLink } from "react-router-dom";
 
 //mui
 import MenuIcon from "@material-ui/icons/Menu";
@@ -31,10 +30,6 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 // components
 import JobSection from "./sidebar/admin/JobSection";
 
-//aws
-import { Auth } from "aws-amplify";
-import { useAuthenticator } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
 
 const useStyles = makeStyles((theme) => ({
   drawerRoot: {
@@ -89,12 +84,8 @@ const MyTheme = {
   },
 };
 
-const Header = () => {
+const Header = ({user}) => {
   const classes = useStyles();
-  const { user, signOut } = useAuthenticator((context) => [context.user]);
-  const [groups, setGroups] = useState(
-    Auth.user.signInUserSession.accessToken.payload["cognito:groups"]
-  );
   const [state, setState] = useState({
     left: false,
   });
@@ -121,18 +112,18 @@ const Header = () => {
       <List component="nav" aria-label="list header profile">
         <ListItem>
           <ListItemText
-            primary={Auth.user.username}
-            secondary={Auth.user.signInUserSession.idToken.payload.email}
+
+            primary={user.name}
+            secondary={user.email}
           />
         </ListItem>
         <ListItem>
-          <strong>Version</strong>: {process.env.REACT_APP_VERSION}
+          <strong>Version</strong>: {1.36}
         </ListItem>
       </List>
 
       <Divider />
 
-      {groups && groups.includes("admin") ? (
         <>
           <List
             component="nav"
@@ -143,18 +134,11 @@ const Header = () => {
               </ListSubheader>
             }
           >
-            <ListItem button onClick={handleClick}>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary="Manage Users" />
-              {menuOpen ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
-            <Collapse in={menuOpen} timeout="auto" unmountOnExit>
+
+
               <List component="div" disablePadding>
                 <NavLink
-                  exact
-                  to="/admin/users"
+                  href="/users"
                   style={{
                     textDecoration: "none",
                   }}
@@ -167,39 +151,17 @@ const Header = () => {
                     <ListItemIcon>
                       <StarBorder />
                     </ListItemIcon>
-                    <ListItemText primary="Show Users" />
-                  </ListItem>
-                </NavLink>
-
-                <NavLink
-                  exact
-                  to="/admin/users/new"
-                  style={{
-                    textDecoration: "none",
-                  }}
-                >
-                  <ListItem
-                    button
-                    className={classes.nested}
-                    onClick={toggleDrawer(side, false)}
-                  >
-                    <ListItemIcon>
-                      <StarBorder />
-                    </ListItemIcon>
-                    <ListItemText primary="Create Users" />
+                    <ListItemText primary="Users" />
                   </ListItem>
                 </NavLink>
               </List>
-            </Collapse>
 
             <JobSection toggleDrawer={toggleDrawer} />
           </List>
 
           <Divider />
         </>
-      ) : null}
 
-      {groups && groups.includes("driver") ? (
         <>
           <Divider />
           <List
@@ -212,8 +174,7 @@ const Header = () => {
             }
           >
             <NavLink
-              exact
-              to="/driver/jobs"
+              href="/driver/jobs"
               style={{
                 textDecoration: "none",
               }}
@@ -230,8 +191,7 @@ const Header = () => {
               </ListItem>
             </NavLink>
             <NavLink
-              exact
-              to="/driver/jobs/new"
+              href="/driver/jobs/new"
               style={{
                 textDecoration: "none",
               }}
@@ -250,9 +210,7 @@ const Header = () => {
           </List>
           <Divider />
         </>
-      ) : null}
 
-      {groups && groups.includes("client") && (
         <>
           <List
             component="nav"
@@ -264,8 +222,7 @@ const Header = () => {
             }
           >
             <NavLink
-              exact
-              to="/client/jobs"
+              href="/client/jobs"
               style={{
                 textDecoration: "none",
               }}
@@ -283,7 +240,6 @@ const Header = () => {
             </NavLink>
           </List>
         </>
-      )}
     </div>
   );
 
@@ -302,7 +258,7 @@ const Header = () => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
-              {groups && groups.length > 0
+              {/* {groups && groups.length > 0
                 ? groups.includes("admin")
                   ? "ADMIN"
                   : groups.includes("driver")
@@ -310,12 +266,12 @@ const Header = () => {
                   : groups.includes("client")
                   ? "CLIENT"
                   : "UNAUTHORISED USER"
-                : "UNAUTHORISED USER"}
+                : "UNAUTHORISED USER"} */}
             </Typography>
             {/* <Authenticator hideDefault={true} theme={MyTheme}  className='noPrint'>
               <SignOut />
             </Authenticator> */}
-            <Button color="secondary" variant="contained" onClick={signOut}>Sign Out</Button>
+            <Button color="secondary" variant="contained">Sign Out</Button>
           </Toolbar>
         </AppBar>
         <Drawer open={state.left} onClose={toggleDrawer("left", false)}>
