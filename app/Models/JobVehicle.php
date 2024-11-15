@@ -4,9 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Operator extends Model
+class JobVehicle extends Model
 {
     // Disable timestamps
     public $timestamps = false;
-    protected $fillable = ['name'];
+
+    protected $fillable = [
+        'job_id',
+        'vehicle_id'
+    ];
 }

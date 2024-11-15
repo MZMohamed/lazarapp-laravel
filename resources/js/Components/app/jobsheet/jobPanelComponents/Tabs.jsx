@@ -1,14 +1,9 @@
-import React, { useState, useContext } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Typography, Box, Tab, Tabs, AppBar } from "@material-ui/core";
-import CollectionContainer from "../collectionContainer";
 
-// import vehicleTypes from "../../../../utils/vehicleTypes.json";
-
-// context
-import JobPanelContext from "../../../../stores/jobPanelContext";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -41,7 +36,8 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 0,
+    flexGrow: 1,
+    width: '100%',
     overflowX: "clip",
   },
   childView: {
@@ -56,15 +52,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TopTabs({ jobs, districts, locations }) {
+const TopTabs = ({ jobs, vehicleTypes }) => {
   const classes = useStyles();
   const theme = useTheme();
 
-  // console.log(jobs);
-
   const [value, setValue] = useState(0);
   // const [locationsEnabled, setLocationsEnabled] = useState(false);
-  const { bottomNavValue } = useContext(JobPanelContext);
+//   const { bottomNavValue } = useContext(JobPanelContext);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -74,22 +68,12 @@ export default function TopTabs({ jobs, districts, locations }) {
     setValue(index);
   };
 
-  const districtTabList = districts.map((el) => {
+  const vehicleTypeTabList = vehicleTypes.map((el) => {
     const { id, name } = el;
-
-    // vehichles is an array and must be filtered as well
-
-    const jobsInDistrict = jobs.filter((jd) => {
-      const vehicleIds = [...new Set(jd.vehicles.map((v) => v.vehicleTypeId))];
-
-      return jd.districtId === id && vehicleIds.includes(bottomNavValue.id);
-    });
-
-    // console.log(jobsInDistrict);
 
     return (
       <Tab
-        disabled={jobsInDistrict.length < 1}
+        // disabled={jobsInDistrict.length < 1}
         key={id}
         label={
           <Typography variant="button" noWrap>
@@ -101,40 +85,10 @@ export default function TopTabs({ jobs, districts, locations }) {
     );
   });
 
-  const tabPanelList = districts.map((el, i) => {
-    const { id, name } = el;
+//   jobsList = jobs.map(job => (
 
-    /**
-     * The idea here is to
-     * 1) get locations according the district
-     * 2) get locations according the vehicle type
-     * 3) create a new array based on the intersection of these 2 arrays
-     * using the filter and includes array methods
-     */
+//   ))
 
-    // get locations according the district
-    const locationDistricts = locations.filter((fl) => {
-      return fl.districtid === id;
-    });
-
-    // get jobs length to check if panel is disabled
-    const jobsInDistrict = jobs.filter((jd) => {
-      const vehicleIds = [...new Set(jd.vehicles.map((v) => v.vehicleTypeId))];
-
-      return jd.districtId === id && vehicleIds.includes(bottomNavValue.id);
-    });
-
-    // create components from data
-    return (
-      <TabPanel key={i} value={i} index={i} dir={theme.direction}>
-        <CollectionContainer
-          collection={locationDistricts}
-          disabled={jobsInDistrict.length < 1}
-          jobs={jobsInDistrict}
-        />
-      </TabPanel>
-    );
-  });
 
   return (
     <div className={classes.root}>
@@ -149,21 +103,29 @@ export default function TopTabs({ jobs, districts, locations }) {
           aria-label="district tabs"
           className={classes.tabs}
         >
-          {districtTabList}
+          {vehicleTypeTabList}
         </Tabs>
       </AppBar>
       <div className={classes.childView}>
-        <Typography color="secondary" variant="h4">
-          Locations
-        </Typography>
+
         <SwipeableViews
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
           index={value}
           onChangeIndex={handleChangeIndex}
         >
-          {tabPanelList}
+          <div>slide n°1</div>
+          <div>slide n°2</div>
+          <div>slide n°3</div>
         </SwipeableViews>
       </div>
     </div>
   );
 }
+
+TopTabs.propTypes = {
+    jobs: PropTypes.array,
+    vehicleTypes: PropTypes.array,
+
+}
+
+export default TopTabs

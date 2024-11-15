@@ -1,4 +1,4 @@
-import { usePage, Head } from "@inertiajs/react";
+import { usePage, Head, Link } from "@inertiajs/react";
 //date-fns
 import { format } from "date-fns";
 
@@ -12,8 +12,8 @@ import {
     TableHead,
     TableRow,
     Paper,
-    Typography
-  } from "@material-ui/core";
+    Typography,
+} from "@material-ui/core";
 import MaterialUiLayout from "@/Layouts/MaterialUiLayout";
 
 const StyledTableCell = withStyles((theme) => ({
@@ -45,6 +45,12 @@ const useStyles = makeStyles((theme) => ({
     table: {
         minWidth: 700,
         marginTop: theme.spacing(1),
+    },
+    tableHeaderAction: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        padding: "8px",
     },
 }));
 
@@ -85,7 +91,16 @@ const Index = () => {
         <>
             <Head title="Users" />
             <Paper className={classes.tableBackground}>
-                <Typography variant="h6">Users</Typography>
+                <div className={classes.tableHeaderAction}>
+                    <Typography variant="h6">Users</Typography>
+                    <Link
+                        className="btn-indigo focus:outline-none"
+                        // eslint-disable-next-line no-undef
+                        href={route("users.create")}
+                    >
+                        Create User
+                    </Link>
+                </div>
                 <TableContainer component={Paper} className={classes.table}>
                     <Table aria-label="customized table">
                         <TableHead>
@@ -110,6 +125,7 @@ const Index = () => {
     );
 };
 
-Index.layout = page => <MaterialUiLayout children={page} />
+// eslint-disable-next-line react/no-children-prop
+Index.layout = (page) => <MaterialUiLayout children={page} />;
 
 export default Index;

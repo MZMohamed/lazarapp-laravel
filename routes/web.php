@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\JobSiteController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -16,7 +17,6 @@ Route::get('/', function () {
     ]);
 });
 
-
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -27,13 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('users', UserController::class);
     Route::resource('groups', GroupController::class);
+    Route::resource('jobs', JobSiteController::class);
 });
-
-Route::get('/admin', function() {
-    return Inertia::render('Admin');
-})->middleware(['auth', 'verified'])->name('admin');
-
-
-
 
 require __DIR__.'/auth.php';

@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Driver extends Model
 {
-    protected $fillable = ['id', 'name'];
+    // Disable timestamps
+    public $timestamps = false;
+    protected $fillable = ['name'];
 }

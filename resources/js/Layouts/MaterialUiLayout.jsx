@@ -2,9 +2,9 @@ import Header from "@/Components/app/Header";
 import PropTypes from "prop-types";
 
 // customize mui theme
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { createTheme, ThemeProvider } from '@material-ui/core/styles'
 
-const theme = createMuiTheme({
+const theme = createTheme({
     palette: {
         primary: { main: "#333132" },
         secondary: {

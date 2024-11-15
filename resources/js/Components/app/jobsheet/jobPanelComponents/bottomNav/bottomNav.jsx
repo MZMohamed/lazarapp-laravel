@@ -7,10 +7,28 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { ConcreteTruckIcon } from "./icons";
 
-import vehicleTypes from "../../../../utils/vehicleTypes.json";
+// import vehicleTypes from "../../../../utils/vehicleTypes.json";
 
 // context
-import JobPanelContext from '../../../../stores/jobPanelContext'
+// import JobPanelContext from '../../../../stores/jobPanelContext'
+
+const vehicleTypes = [
+    {
+      "id": 1,
+      "name": "Bucket Machine"
+    },
+    {
+      "id": 2,
+      "name": "Pump"
+
+    },
+    {
+      "id": 3,
+      "name": "Truck"
+    }
+  ]
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,11 +51,11 @@ const useStyles = makeStyles((theme) => ({
 export default function BottomNav() {
 
   const classes = useStyles();
-  const { bottomNavValue, setBottomNavValue } = useContext(JobPanelContext)
+//   const { bottomNavValue, setBottomNavValue } = useContext(JobPanelContext)
 
-  const handleChange = (event, newValue) => {
-    setBottomNavValue(newValue);
-  };
+//   const handleChange = (event, newValue) => {
+//     setBottomNavValue(newValue);
+//   };
 
   const vehicleTypesList = vehicleTypes.map((el) => {
     const { id, name } = el;
@@ -59,8 +77,8 @@ export default function BottomNav() {
 
   return (
     <BottomNavigation
-      value={bottomNavValue}
-      onChange={handleChange}
+    //   value={bottomNavValue}
+    //   onChange={handleChange}
       showLabels
       className={classes.root}
     >

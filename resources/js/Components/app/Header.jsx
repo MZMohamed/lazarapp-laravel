@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { usePage } from "@inertiajs/react";
-import { Link as NavLink } from "@inertiajs/react";
+import { usePage, Link as NavLink } from "@inertiajs/react";
 import "@/../css/print.css";
 
 //mui
@@ -9,7 +8,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
     AppBar,
     Button,
-    Collapse,
     Divider,
     Drawer,
     IconButton,
@@ -54,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = () => {
-
     const { user } = usePage().props.auth;
 
     const classes = useStyles();
@@ -62,7 +59,7 @@ const Header = () => {
         left: false,
     });
 
-    const [menuOpen, setMenuOpen] = useState(true);
+    // const [menuOpen, setMenuOpen] = useState(true);
 
     const toggleDrawer = (side, open) => (event) => {
         if (
@@ -75,9 +72,9 @@ const Header = () => {
         setState({ ...state, [side]: open });
     };
 
-    const handleClick = () => {
-        setMenuOpen(!menuOpen);
-    };
+    // const handleClick = () => {
+    //     setMenuOpen(!menuOpen);
+    // };
 
     const sideList = (side) => (
         <div className={classes.list}>
@@ -92,63 +89,70 @@ const Header = () => {
 
             <Divider />
 
-            <>
-                <List
-                    component="nav"
-                    aria-label="sidebar-nested-list"
-                    subheader={
-                        <ListSubheader
-                            component="div"
-                            id="nested-list-subheader"
+            <List
+                component="nav"
+                aria-label="sidebar-nested-list"
+                subheader={
+                    <ListSubheader component="div" id="nested-list-subheader">
+                        Admin
+                    </ListSubheader>
+                }
+            >
+                <List component="div" disablePadding>
+                    <NavLink
+                        href="/users"
+                        style={{
+                            textDecoration: "none",
+                        }}
+                    >
+                        <ListItem
+                            button
+                            className={classes.nested}
+                            onClick={toggleDrawer(side, false)}
                         >
-                            Admin
-                        </ListSubheader>
-                    }
-                >
-                    <List component="div" disablePadding>
-                        <NavLink
-                            href="/users"
-                            style={{
-                                textDecoration: "none",
-                            }}
-                        >
-                            <ListItem
-                                button
-                                className={classes.nested}
-                                onClick={toggleDrawer(side, false)}
-                            >
-                                <ListItemIcon>
-                                    <StarBorder />
-                                </ListItemIcon>
-                                <ListItemText primary="Users" />
-                            </ListItem>
-                        </NavLink>
-                    </List>
-
-                    <JobSection toggleDrawer={toggleDrawer} />
-                    <List component="div" disablePadding>
-                        <NavLink
-                            href="/groups"
-                            style={{
-                                textDecoration: "none",
-                            }}
-                        >
-                            <ListItem
-                                button
-                                className={classes.nested}
-                                onClick={toggleDrawer(side, false)}
-                            >
-                                <ListItemIcon>
-                                    <StarBorder />
-                                </ListItemIcon>
-                                <ListItemText primary="Groups" />
-                            </ListItem>
-                        </NavLink>
-                    </List>
+                            <ListItemIcon>
+                                <StarBorder />
+                            </ListItemIcon>
+                            <ListItemText primary="Users" />
+                        </ListItem>
+                    </NavLink>
                 </List>
 
-                <Divider />
-            </>
+
+                <List component="div" disablePadding>
+                    <NavLink
+                        href="/groups"
+                        style={{
+                            textDecoration: "none",
+                        }}
+                    >
+                        <ListItem
+                            button
+                            className={classes.nested}
+                            onClick={toggleDrawer(side, false)}
+                        >
+                            <ListItemIcon>
+                                <StarBorder />
+                            </ListItemIcon>
+                            <ListItemText primary="Groups" />
+                        </ListItem>
+                    </NavLink>
+                </List>
+            </List>
+
+            <Divider />
+
+            <List
+                component="nav"
+                aria-label="sidebar-nested-list"
+                subheader={
+                    <ListSubheader component="div" id="nested-list-subheader">
+                        Jobs
+                    </ListSubheader>
+                }
+            >
+                <JobSection toggleDrawer={toggleDrawer} />
+            </List>
         </div>
     );
 
@@ -166,20 +170,10 @@ const Header = () => {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Typography variant="h6" className={classes.title}>
-                            {/* {groups && groups.length > 0
-                ? groups.includes("admin")
-                  ? "ADMIN"
-                  : groups.includes("driver")
-                  ? "DRIVER"
-                  : groups.includes("client")
-                  ? "CLIENT"
-                  : "UNAUTHORISED USER"
-                : "UNAUTHORISED USER"} */}
-                        </Typography>
-                        {/* <Authenticator hideDefault={true} theme={MyTheme}  className='noPrint'>
-              <SignOut />
-            </Authenticator> */}
+                        <Typography
+                            variant="h6"
+                            className={classes.title}
+                        ></Typography>
                         <Button color="secondary" variant="contained">
                             Sign Out
                         </Button>

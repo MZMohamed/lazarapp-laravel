@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Head } from "@inertiajs/react";
-import { router } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 
 // components
 import CreateJobFormContainer from "@/Components/app/admin/jobs/CreateJobFormContainer";
@@ -8,6 +7,7 @@ import CreateJobFormContainer from "@/Components/app/admin/jobs/CreateJobFormCon
 //mui
 import { makeStyles } from "@material-ui/core/styles";
 import { TextField, Typography } from "@material-ui/core";
+import MaterialUiLayout from "@/Layouts/MaterialUiLayout";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -67,15 +67,22 @@ const GroupCreate = () => {
     return (
         <>
             <Head title="Create Group" />
-            <Typography variant="h5" color="secondary">
-                Create Group
-            </Typography>
             <form
                 className={classes.root}
                 noValidate
                 autoComplete="off"
                 onSubmit={handleSubmit}
             >
+                <Typography variant="h5" color="secondary">
+                    Create Group
+                </Typography>
+                <Link
+                    className="btn-indigo focus:outline-none"
+                    // eslint-disable-next-line no-undef
+                    href={route("groups.index")}
+                >
+                    Back
+                </Link>
                 <CreateJobFormContainer>
                     <TextField
                         required
@@ -96,5 +103,8 @@ const GroupCreate = () => {
         </>
     );
 };
+
+// eslint-disable-next-line react/no-children-prop
+GroupCreate.layout = (page) => <MaterialUiLayout children={page} />;
 
 export default GroupCreate;

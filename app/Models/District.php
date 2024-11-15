@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class District extends Model
 {
-    protected $fillable = ['id', 'name', 'number', 'code'];
+    // Disable timestamps
+    public $timestamps = false;
+    protected $fillable = ['name', 'number', 'code'];
 }

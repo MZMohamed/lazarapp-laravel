@@ -1,34 +1,11 @@
-import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-// import {
-//   Accordion,
-//   AccordionSummary,
-//   IconButton,
-//   List,
-//   ListItem,
-//   ListItemIcon,
-//   ListItemSecondaryAction,
-//   ListItemText,
-//   Tooltip,
-//   Typography,
-// } from "@material-ui/core";
-// import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-// import WorkIcon from "@material-ui/icons/Work";
-// import DeleteIcon from "@material-ui/icons/Delete";
-// import PictureAsPdfSharpIcon from "@material-ui/icons/PictureAsPdfSharp";
-// import PhotoLibraryTwoToneIcon from "@material-ui/icons/PhotoLibraryTwoTone";
+// import { usePage, Head, Link } from "@inertiajs/react";
 import { BottomNav } from "./jobPanelComponents/bottomNav";
 
-//router
-import { Link as RouterLink, useHistory } from "react-router-dom";
+// import { JobPanelContextProvider } from "../../stores/jobPanelContext";
 
-//aws
-import { Auth, Storage } from "aws-amplify";
-// Amplify.Logger.LOG_LEVEL = 'DEBUG'
-
-import { JobPanelContextProvider } from "../../stores/jobPanelContext";
-
-import { DistrictTabs, Locations } from "./jobPanelComponents";
+import { DistrictTabs } from "./jobPanelComponents";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,38 +42,38 @@ const useStyles = makeStyles((theme) => ({
 
 const JobPanel = ({
   jobs,
-  setJobs,
   districts,
   locations,
-  images,
-  pdfs,
-  deleteJob,
-  deleteJobDetail,
-  deletePdfs,
 }) => {
   const classes = useStyles();
 
   console.log({jobs, districts, locations});
 
-  const history = useHistory();
+//   const history = useHistory();
 
-  const handleClick = (id) => (event) => {
-    event.preventDefault();
-    history.push(`/${groups[0]}/job/${id}`);
-  };
+//   const handleClick = (id) => (event) => {
+//     event.preventDefault();
+//     history.push(`/${groups[0]}/job/${id}`);
+//   };
 
-  const [groups, setGroups] = useState(
-    Auth.user.signInUserSession.accessToken.payload["cognito:groups"]
-  );
+//   const [groups, setGroups] = useState(
+//     Auth.user.signInUserSession.accessToken.payload["cognito:groups"]
+//   );
 
   return (
-    <JobPanelContextProvider>
+    <>
       <div className={classes.root}>
         <DistrictTabs jobs={jobs} districts={districts} locations={locations}/>
       </div>
       <BottomNav />
-    </JobPanelContextProvider>
+    </>
   );
 };
+
+JobPanel.propTypes = {
+    jobs: PropTypes.array,
+    districts: PropTypes.array,
+    locations: PropTypes.array,
+}
 
 export default JobPanel;
