@@ -11,7 +11,7 @@ class VehicleType extends Model
     protected $fillable = ['name'];
 
     public function vehicles()
-{
-    return $this->hasMany(Vehicle::class);
-}
+    {
+        return $this->hasMany(Vehicle::class);
+    }
 }

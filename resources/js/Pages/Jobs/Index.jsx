@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 
 import { red } from "@material-ui/core/colors";
-import Tabs from "@/Components/app/jobsheet/jobPanelComponents/Tabs";
+import TopTabs from "@/Components/app/jobsheet/jobPanelComponents/Tabs";
 import DistrictFilterSelect from "@/Components/app/jobsheet/jobPanelComponents/DistrictFilterSelect";
 import LocationFilterSelect from "@/Components/app/jobsheet/jobPanelComponents/LocationFilterSelect";
 
@@ -88,7 +88,7 @@ const Index = () => {
                 />
             </div>
 
-            <Tabs locations={locations} vehicleTypes={vehicleTypes} jobs={jobs}/>
+            <TopTabs locations={locations} vehicleTypes={vehicleTypes} jobs={jobs} groupedJobs={groupedJobs}/>
         </div>
     );
 };

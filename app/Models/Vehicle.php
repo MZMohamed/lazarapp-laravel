@@ -20,4 +20,9 @@ class Vehicle extends Model
     {
         return $this->belongsTo(VehicleType::class, 'vehicle_type_id');
     }
+
+    public function jobs()
+    {
+        return $this->belongsToMany(JobSite::class, 'job_vehicles', 'vehicle_id', 'job_id');
+    }
 }

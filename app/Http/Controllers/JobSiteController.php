@@ -18,11 +18,8 @@ class JobSiteController extends Controller
      */
     public function index()
     {
-        $jobs = JobSite::with('vehicles')->get();
         // Group jobs by vehicleType
-        $groupedJobs = $jobs->groupBy(function ($job) {
-            return $job->vehicles->pluck('vehicleType.name')->unique()->join(', ');
-        });
+        $groupedJobs = $this->getJobsGroupedByVehicleType();
 
         return Inertia::render('Jobs/Index', [
             'jobs' => JobSite::all()->map(function ($job) {
@@ -110,5 +107,29 @@ class JobSiteController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getJobsGroupedByVehicleType()
+    {
+        // Fetch all vehicle types with their related jobs
+        $vehicleTypes = VehicleType::with(['vehicles.jobs.driver' => function ($query) {
+            // You can add filters to the jobs here if needed
+        }])->get();
+
+        // Transform the data into the desired format
+        $groupedJobs = $vehicleTypes->map(function ($vehicleType) {
+            return [
+                'id' => $vehicleType->id,
+                'name' => $vehicleType->name,
+                'jobs' => $vehicleType->vehicles
+                    ->flatMap(function ($vehicle) {
+                        return $vehicle->jobs; // Get jobs for each vehicle
+                    })
+                    ->unique('id') // Ensure unique jobs
+                    ->values(), // Reindex array
+            ];
+        });
+
+        return response()->json($groupedJobs);
     }
 }
