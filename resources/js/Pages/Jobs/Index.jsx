@@ -5,7 +5,6 @@ import { usePage, Head } from "@inertiajs/react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 
-import { red } from "@material-ui/core/colors";
 import TopTabs from "@/Components/app/jobsheet/jobPanelComponents/Tabs";
 import DistrictFilterSelect from "@/Components/app/jobsheet/jobPanelComponents/DistrictFilterSelect";
 import LocationFilterSelect from "@/Components/app/jobsheet/jobPanelComponents/LocationFilterSelect";
@@ -15,35 +14,6 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         alignItems: "start",
-    },
-    list: {
-        width: "100%",
-        maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
-        margin: theme.spacing(2),
-    },
-    listItem: {
-        "&:hover": {
-            color: red[600],
-        },
-    },
-    inline: {
-        display: "inline",
-    },
-    deleteIconHover: {
-        "&:hover": {
-            color: red[600],
-        },
-    },
-    icon: {
-        margin: theme.spacing(2),
-    },
-    jobText: {
-        alignSelf: "center",
-        textDecoration: "none",
-    },
-    button: {
-        margin: theme.spacing(2),
     },
     child: {
         paddingLeft: theme.spacing(2),

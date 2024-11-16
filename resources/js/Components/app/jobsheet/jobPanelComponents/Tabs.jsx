@@ -12,7 +12,7 @@ import {
     CardActions,
     CardContent,
     Button,
-    Grid
+    Grid,
 } from "@material-ui/core";
 import { Link } from "@inertiajs/react";
 
@@ -90,6 +90,9 @@ const useStyles = makeStyles((theme) => ({
     actions: {
         justifyContent: "space-between",
     },
+    // swipeableContainer: {
+    //     width: "960px",
+    // },
 }));
 
 const TopTabs = ({ groupedJobs, jobs, vehicleTypes }) => {
@@ -150,14 +153,14 @@ const TopTabs = ({ groupedJobs, jobs, vehicleTypes }) => {
                     axis={theme.direction === "rtl" ? "x-reverse" : "x"}
                     index={value}
                     onChangeIndex={handleChangeIndex}
+                    // className={classes.swipeableContainer}
                 >
-                    {/* <div>slide n°1</div>
-          <div>slide n°2</div>
-          <div>slide n°3</div> */}
-
                     {groupedJobs.original.map((vehicleType) => {
                         return (
-                            <Grid key={vehicleType.id}>
+                            <Grid
+                                key={vehicleType.id}
+                                container spacing={3}
+                            >
                                 {vehicleType.jobs.map((job) => {
                                     return (
                                         <Card
