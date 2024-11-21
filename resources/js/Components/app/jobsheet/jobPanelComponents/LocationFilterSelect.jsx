@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
 
 const LocationFilterSelect = ({
     locations,
-    selectedLocation,
     setSelectedLocation,
     selectedDistrict,
 }) => {
@@ -66,7 +65,6 @@ const LocationFilterSelect = ({
 
 LocationFilterSelect.propTypes = {
     locations: PropTypes.array,
-    selectedLocation: PropTypes.number,
     setSelectedLocation: PropTypes.any,
     selectedDistrict: PropTypes.number,
 };

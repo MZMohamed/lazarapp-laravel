@@ -22,12 +22,6 @@ class JobSiteController extends Controller
         $groupedJobs = $this->getJobsGroupedByVehicleType();
 
         return Inertia::render('Jobs/Index', [
-            'jobs' => JobSite::all()->map(function ($job) {
-                return [
-                    'id' => $job->id,
-                    'jobNumber' => $job->jobNumber
-                ];
-            }),
             'groupedJobs' => $groupedJobs,
 
             'groups' => Group::all()->map(function ($group) {
@@ -82,7 +76,9 @@ class JobSiteController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Inertia::render('Jobs/Show',[
+            'id' => $id
+        ]);
     }
 
     /**

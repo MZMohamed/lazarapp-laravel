@@ -11,7 +11,7 @@ import {
     Card,
     CardActions,
     CardContent,
-    Button,
+    // Button,
     Grid,
 } from "@material-ui/core";
 import { Link } from "@inertiajs/react";
@@ -90,18 +90,23 @@ const useStyles = makeStyles((theme) => ({
     actions: {
         justifyContent: "space-between",
     },
-    // swipeableContainer: {
-    //     width: "960px",
-    // },
+    linkButton: {
+        backgroundColor: theme.palette.secondary.main,
+        paddingTop: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
+
+        paddingLeft: theme.spacing(2),
+        paddingRight: theme.spacing(2),
+
+        borderRadius: theme.spacing(1)
+
+    }
 }));
 
-const TopTabs = ({ groupedJobs, jobs, vehicleTypes }) => {
+const TopTabs = ({ groupedJobs, vehicleTypes, selectedLocation, selectedDistrict }) => {
     const classes = useStyles();
     const theme = useTheme();
-
     const [value, setValue] = useState(0);
-    // const [locationsEnabled, setLocationsEnabled] = useState(false);
-    //   const { bottomNavValue } = useContext(JobPanelContext);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -127,10 +132,6 @@ const TopTabs = ({ groupedJobs, jobs, vehicleTypes }) => {
             />
         );
     });
-
-    //   jobsList = jobs.map(job => (
-
-    //   ))
 
     return (
         <div className={classes.root}>
@@ -161,7 +162,11 @@ const TopTabs = ({ groupedJobs, jobs, vehicleTypes }) => {
                                 key={vehicleType.id}
                                 container spacing={3}
                             >
-                                {vehicleType.jobs.map((job) => {
+                                {vehicleType.jobs
+
+                                .filter(job => job.district_id === selectedDistrict || selectedDistrict === 0)
+                                .filter(job => job.location_id === selectedLocation || selectedLocation === 0)
+                                .map((job) => {
                                     return (
                                         <Card
                                             key={job.id}
@@ -200,19 +205,21 @@ const TopTabs = ({ groupedJobs, jobs, vehicleTypes }) => {
                                                 className={classes.actions}
                                             >
                                                 <Link
-                                                    href={`/admin/job/${job.id}`}
-                                                    color="primary"
+                                                    className={classes.linkButton}
+                                                    // eslint-disable-next-line no-undef
+                                                    href={route('jobs.show', [job.id])}
+                                                    color="secondary"
                                                     underline="hover"
                                                 >
                                                     View Details
                                                 </Link>
-                                                <Button
+                                                {/* <Button
                                                     variant="contained"
                                                     color="primary"
                                                     size="small"
                                                 >
                                                     Take Action
-                                                </Button>
+                                                </Button> */}
                                             </CardActions>
                                         </Card>
                                     );
@@ -227,9 +234,10 @@ const TopTabs = ({ groupedJobs, jobs, vehicleTypes }) => {
 };
 
 TopTabs.propTypes = {
-    jobs: PropTypes.array,
-    groupedJobs: PropTypes.array,
+    groupedJobs: PropTypes.object,
     vehicleTypes: PropTypes.array,
+    selectedLocation: PropTypes.number,
+    selectedDistrict: PropTypes.number,
 };
 
 export default TopTabs;

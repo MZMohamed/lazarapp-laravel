@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GroupStoreRequest;
+use App\Http\Resources\GroupResource;
 use App\Models\Group;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Response;
+
+use function Pest\Laravel\delete;
 
 class GroupController extends Controller
 {
@@ -62,24 +69,29 @@ class GroupController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Group $group): Response
     {
-        //
+        return Inertia::render('Groups/Edit', [
+            'group' => new GroupResource($group),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Group $group, GroupStoreRequest $request): RedirectResponse
     {
-        //
+        $group->update($request->validated());
+        return to_route('groups.index')->with('sucess', 'Group Updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Group $group): RedirectResponse
     {
-        //
+        $group->delete();
+        return to_route('groups.index')->with('sucess', 'Group Deleted');
+
     }
 }

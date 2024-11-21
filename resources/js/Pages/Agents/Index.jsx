@@ -67,12 +67,12 @@ const useStyles = makeStyles((theme) => ({
 // this page should only be accessible by an admin user
 
 const Index = () => {
-    const { groups } = usePage().props;
+    const { agents } = usePage().props;
 
     // console.log(groups);
     const classes = useStyles();
 
-    const groupList = groups.map((row) => (
+    const agentList = agents.map((row) => (
         <StyledTableRow key={row.id}>
             {/* groupname */}
             <StyledTableCell component="th" scope="row">
@@ -93,14 +93,14 @@ const Index = () => {
             {/* actions */}
             <StyledTableCell align="right">
                 {/* eslint-disable-next-line no-undef */}
-                <Link href={route("groups.edit", row.id)} className={classes.tableActionButton}>Edit</Link>
+                <Link href={route("agents.edit", row.id)} className={classes.tableActionButton}>Edit</Link>
             </StyledTableCell>
         </StyledTableRow>
     ));
 
     return (
         <>
-            <Head title="Groups" />
+            <Head title="Agents" />
             <Paper className={classes.tableBackground}>
                 <div className={classes.tableHeaderAction}>
                     <Typography variant="h6">Groups</Typography>
@@ -128,7 +128,7 @@ const Index = () => {
                                 </StyledTableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>{groupList}</TableBody>
+                        <TableBody>{agentList}</TableBody>
                     </Table>
                 </TableContainer>
             </Paper>

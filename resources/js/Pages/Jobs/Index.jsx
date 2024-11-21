@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Index = () => {
-    const { groupedJobs, jobs, vehicleTypes, locations, districts } = usePage().props;
+    const { groupedJobs, vehicleTypes, locations, districts } = usePage().props;
 
     console.log(groupedJobs);
 
@@ -58,7 +58,12 @@ const Index = () => {
                 />
             </div>
 
-            <TopTabs locations={locations} vehicleTypes={vehicleTypes} jobs={jobs} groupedJobs={groupedJobs}/>
+            <TopTabs
+                vehicleTypes={vehicleTypes}
+                groupedJobs={groupedJobs}
+                selectedLocation={selectedLocation}
+                selectedDistrict={selectedDistrict}
+            />
         </div>
     );
 };

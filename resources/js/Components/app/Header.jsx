@@ -99,44 +99,40 @@ const Header = () => {
                 }
             >
                 <List component="div" disablePadding>
-                    <NavLink
-                        href="/users"
-                        style={{
-                            textDecoration: "none",
-                        }}
-                    >
-                        <ListItem
-                            button
-                            className={classes.nested}
-                            onClick={toggleDrawer(side, false)}
+                    {[
+                        {
+                            name: "Users",
+                            route: "users.index",
+                        },
+                        {
+                            name: "Groups",
+                            route: "groups.index",
+                        },
+                        {
+                            name: "Agents",
+                            route: "agents.index",
+                        },
+                    ].map((link) => (
+                        <NavLink
+                            key={link.route}
+                            // eslint-disable-next-line no-undef
+                            href={route(link.route)}
+                            style={{
+                                textDecoration: "none",
+                            }}
                         >
-                            <ListItemIcon>
-                                <StarBorder />
-                            </ListItemIcon>
-                            <ListItemText primary="Users" />
-                        </ListItem>
-                    </NavLink>
-                </List>
-
-
-                <List component="div" disablePadding>
-                    <NavLink
-                        href="/groups"
-                        style={{
-                            textDecoration: "none",
-                        }}
-                    >
-                        <ListItem
-                            button
-                            className={classes.nested}
-                            onClick={toggleDrawer(side, false)}
-                        >
-                            <ListItemIcon>
-                                <StarBorder />
-                            </ListItemIcon>
-                            <ListItemText primary="Groups" />
-                        </ListItem>
-                    </NavLink>
+                            <ListItem
+                                button
+                                className={classes.nested}
+                                onClick={toggleDrawer(side, false)}
+                            >
+                                <ListItemIcon>
+                                    <StarBorder />
+                                </ListItemIcon>
+                                <ListItemText primary={link.name} />
+                            </ListItem>
+                        </NavLink>
+                    ))}
                 </List>
             </List>
 
