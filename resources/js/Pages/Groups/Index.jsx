@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(1),
         borderRadius: theme.spacing(1),
         marginRight: theme.spacing(1),
-    }
+    },
 }));
 
 // this page should only be accessible by an admin user
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 const Index = () => {
     const { groups } = usePage().props;
 
-    // console.log(groups);
+    // console.log(flash);
     const classes = useStyles();
 
     const groupList = groups.map((row) => (
@@ -92,8 +92,13 @@ const Index = () => {
 
             {/* actions */}
             <StyledTableCell align="right">
-                {/* eslint-disable-next-line no-undef */}
-                <Link href={route("groups.edit", row.id)} className={classes.tableActionButton}>Edit</Link>
+                <Link
+                    // eslint-disable-next-line no-undef
+                    href={route("groups.edit", row.id)}
+                    className={classes.tableActionButton}
+                >
+                    Edit
+                </Link>
             </StyledTableCell>
         </StyledTableRow>
     ));

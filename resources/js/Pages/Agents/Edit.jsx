@@ -60,19 +60,19 @@ const useStyles = makeStyles((theme) => ({
 const Edit = () => {
     const classes = useStyles();
 
-    const { group } = usePage().props;
+    const { agent } = usePage().props;
     const { data, setData, errors, put, processing } = useForm({
-        name: group.data.name || "",
+        name: agent.data.name || "",
     });
 
-    console.log("name", group.data.name);
+    console.log("name", agent.data.name);
     console.log(errors);
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
         // eslint-disable-next-line no-undef
-        put(route("groups.update", group.data.id));
+        put(route("agents.update", agent.data.id));
     };
 
     const handleChange = (e) => {
@@ -80,19 +80,19 @@ const Edit = () => {
     };
 
     const handleDestroy = () => {
-        if(confirm('Are you sure you want to delete this group')) {
+        if(confirm('Are you sure you want to delete this agent')) {
             // eslint-disable-next-line no-undef
-            router.delete(route('groups.destroy', group.data.id))
+            router.delete(route('agents.destroy', agent.data.id))
         }
     }
 
 
     return (
         <div className={classes.root}>
-            <Head title="Edit Group" />
+            <Head title="Edit Agent" />
 
             <Typography variant="h5" color="secondary">
-                Edit Group
+                Edit Agent
             </Typography>
             <form
                 className={classes.form}
@@ -124,7 +124,7 @@ const Edit = () => {
                 <Link
                     className="btn-indigo focus:outline-none"
                     // eslint-disable-next-line no-undef
-                    href={route("groups.index")}
+                    href={route("agents.index")}
                 >
                     Back
                 </Link>

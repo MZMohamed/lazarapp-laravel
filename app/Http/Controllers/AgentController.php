@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AgentResource;
 use App\Models\Agent;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,13 +14,11 @@ class AgentController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Groups/Index', [
-            'groups' => Agent::all()->map(function ($agent) {
+        return Inertia::render('Agents/Index', [
+            'agents' => Agent::all()->map(function ($agent) {
                 return [
                     'id' => $agent->id,
                     'name' => $agent->name,
-                    'agentCreateDate' => $agent->created_at,
-                    'agentLastModifiedDate' => $agent->updated_at,
                     'edit_url' => route('agents.edit', $agent),
                 ];
             }),
@@ -32,7 +31,7 @@ class AgentController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Agents/Create');
     }
 
     /**
@@ -40,7 +39,15 @@ class AgentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+
+        Agent::create([
+            'name' => $validated['name']
+        ]);
+
+        return redirect()->route('agents.index')->with('success', 'Agent created successfully.');
     }
 
     /**
@@ -54,9 +61,11 @@ class AgentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Agent $agent)
     {
-        //
+        return Inertia::render('Agents/Edit', [
+            'agent' => new AgentResource($agent),
+        ]);
     }
 
     /**
@@ -70,8 +79,9 @@ class AgentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Agent $agent)
     {
-        //
+        $agent->delete();
+        return to_route('agents.index')->with('sucess', 'Agent Deleted');//
     }
 }

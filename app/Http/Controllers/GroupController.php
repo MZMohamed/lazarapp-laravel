@@ -8,10 +8,7 @@ use App\Models\Group;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Inertia\Response;
-
-use function Pest\Laravel\delete;
 
 class GroupController extends Controller
 {
@@ -45,17 +42,15 @@ class GroupController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(GroupStoreRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255'
-        ]);
+        $validated = $request->validated();
 
         Group::create([
             'name' => $validated['name']
         ]);
 
-        return redirect()->route('groups.index')->with('success', 'Group created successfully.');
+        return to_route('groups.index')->with('success', 'Group created successfully.');
     }
 
     /**
@@ -82,7 +77,7 @@ class GroupController extends Controller
     public function update(Group $group, GroupStoreRequest $request): RedirectResponse
     {
         $group->update($request->validated());
-        return to_route('groups.index')->with('sucess', 'Group Updated');
+        return to_route('groups.index')->with('success', 'Group Updated');
     }
 
     /**
@@ -91,7 +86,7 @@ class GroupController extends Controller
     public function destroy(Group $group): RedirectResponse
     {
         $group->delete();
-        return to_route('groups.index')->with('sucess', 'Group Deleted');
+        return to_route('groups.index')->with('success', 'Group Deleted');
 
     }
 }

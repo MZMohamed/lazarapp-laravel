@@ -1,8 +1,8 @@
 import Header from "@/Components/app/Header";
 import PropTypes from "prop-types";
-
+import FlashMessages from '@/Components/Messages/FlashMessages';
 // customize mui theme
-import { createTheme, ThemeProvider } from '@material-ui/core/styles'
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const theme = createTheme({
     palette: {
@@ -14,9 +14,12 @@ const theme = createTheme({
 });
 
 export default function MaterialUiLayout({ children }) {
+
+
     return (
         <ThemeProvider theme={theme}>
             <Header />
+            <FlashMessages />
             <main>{children}</main>
         </ThemeProvider>
     );
