@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\DriverController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
@@ -30,6 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('groups', GroupController::class);
     Route::resource('jobs', JobSiteController::class);
     Route::resource('agents', AgentController::class);
+    Route::resource('districts', DistrictController::class);
+    Route::resource('drivers', DriverController::class);
 });
 
 require __DIR__.'/auth.php';

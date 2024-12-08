@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const AgentCreate = () => {
+const DriverCreate = () => {
     const classes = useStyles();
 
     const { data, setData, errors, processing, post} = useForm({
@@ -55,12 +55,12 @@ const AgentCreate = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        post("/agents", data);
+        post("/drivers", data);
     };
 
     return (
         <>
-            <Head title="Create Agent" />
+            <Head title="Create Driver" />
             <form
                 className={classes.root}
                 noValidate
@@ -68,12 +68,12 @@ const AgentCreate = () => {
                 onSubmit={handleSubmit}
             >
                 <Typography variant="h5" color="secondary">
-                    Create Agent
+                    Create Driver
                 </Typography>
                 <Link
                     className="btn-indigo focus:outline-none"
                     // eslint-disable-next-line no-undef
-                    href={route("agents.index")}
+                    href={route("drivers.index")}
                 >
                     Back
                 </Link>
@@ -91,7 +91,7 @@ const AgentCreate = () => {
                     />
                     <input
                         type="submit"
-                        value="Create Agent"
+                        value="Create Driver"
                         disabled={processing}
                         className={classes.submitButton}
                     />
@@ -102,6 +102,6 @@ const AgentCreate = () => {
 };
 
 // eslint-disable-next-line react/no-children-prop
-AgentCreate.layout = (page) => <MaterialUiLayout children={page} />;
+DriverCreate.layout = (page) => <MaterialUiLayout children={page} />;
 
-export default AgentCreate;
+export default DriverCreate;

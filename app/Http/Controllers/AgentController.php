@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\AgentResource;
+use Inertia\Inertia;
 use App\Models\Agent;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
+use App\Http\Resources\AgentResource;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\AgentStoreRequest;
 
 class AgentController extends Controller
 {
@@ -37,17 +39,15 @@ class AgentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AgentStoreRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255'
-        ]);
+        $validated = $request->validated();
 
         Agent::create([
             'name' => $validated['name']
         ]);
 
-        return redirect()->route('agents.index')->with('success', 'Agent created successfully.');
+        return to_route('agents.index')->with('success', 'Agent created successfully.');
     }
 
     /**
@@ -71,9 +71,10 @@ class AgentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Agent $agent, AgentStoreRequest $request): RedirectResponse
     {
-        //
+        $agent->update($request->validated());
+        return to_route('agents.index')->with('success', 'Agent Updated');
     }
 
     /**

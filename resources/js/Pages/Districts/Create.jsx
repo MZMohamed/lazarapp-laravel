@@ -1,4 +1,4 @@
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, useForm, Link } from "@inertiajs/react";
 
 // components
 import CreateJobFormContainer from "@/Components/app/admin/jobs/CreateJobFormContainer";
@@ -38,10 +38,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const AgentCreate = () => {
+const GroupCreate = () => {
     const classes = useStyles();
 
-    const { data, setData, errors, processing, post} = useForm({
+    const { data, setData, errors, post, processing } = useForm({
         name: "",
     });
 
@@ -55,25 +55,25 @@ const AgentCreate = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        post("/agents", data);
+        post("/districts", data);
+
     };
 
     return (
         <>
-            <Head title="Create Agent" />
+            <Head title="Create District" />
             <form
                 className={classes.root}
-                noValidate
                 autoComplete="off"
                 onSubmit={handleSubmit}
             >
                 <Typography variant="h5" color="secondary">
-                    Create Agent
+                    Create District
                 </Typography>
                 <Link
                     className="btn-indigo focus:outline-none"
                     // eslint-disable-next-line no-undef
-                    href={route("agents.index")}
+                    href={route("districts.index")}
                 >
                     Back
                 </Link>
@@ -91,7 +91,7 @@ const AgentCreate = () => {
                     />
                     <input
                         type="submit"
-                        value="Create Agent"
+                        value="Create District"
                         disabled={processing}
                         className={classes.submitButton}
                     />
@@ -102,6 +102,6 @@ const AgentCreate = () => {
 };
 
 // eslint-disable-next-line react/no-children-prop
-AgentCreate.layout = (page) => <MaterialUiLayout children={page} />;
+GroupCreate.layout = (page) => <MaterialUiLayout children={page} />;
 
-export default AgentCreate;
+export default GroupCreate;

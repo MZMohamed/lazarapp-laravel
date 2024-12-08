@@ -112,6 +112,14 @@ const Header = () => {
                             name: "Agents",
                             route: "agents.index",
                         },
+                        {
+                            name: "Districts",
+                            route: "districts.index",
+                        },
+                        {
+                            name: "Drivers",
+                            route: "drivers.index",
+                        },
                     ].map((link) => (
                         <NavLink
                             key={link.route}

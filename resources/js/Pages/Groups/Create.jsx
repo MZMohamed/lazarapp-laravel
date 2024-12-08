@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Head, Link, router } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 
 // components
 import CreateJobFormContainer from "@/Components/app/admin/jobs/CreateJobFormContainer";
@@ -41,35 +40,27 @@ const useStyles = makeStyles((theme) => ({
 
 const GroupCreate = () => {
     const classes = useStyles();
-
-    const [values, setValues] = useState({
+    const { data, setData, errors, processing, post} = useForm({
         name: "",
     });
 
-    // add validation to form
-    // const [error, setError] = useState(false)
-
     const handleChange = (event) => {
-        setValues({
-            ...values,
-            [event.target.name]: event.target.value,
-        });
+        setData("name", event.target.value);
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        router.post("/groups", values);
+        post("/groups", data);
 
-        // setValues({ name: "", password: "", phone: "", email: "", group: "" });
     };
 
     return (
         <>
             <Head title="Create Group" />
+
             <form
                 className={classes.root}
-                noValidate
                 autoComplete="off"
                 onSubmit={handleSubmit}
             >
@@ -91,11 +82,14 @@ const GroupCreate = () => {
                         label="Name"
                         variant="outlined"
                         onChange={handleChange}
-                        value={values.name}
+                        value={data.name}
+                        helperText={errors.name || ""}
+                        error={errors.name}
                     />
                     <input
                         type="submit"
                         value="Create Group"
+                        disabled={processing}
                         className={classes.submitButton}
                     />
                 </CreateJobFormContainer>
