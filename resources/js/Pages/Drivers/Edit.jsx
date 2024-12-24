@@ -28,11 +28,6 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         gap: theme.spacing(1)
     },
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-        width: 200,
-    },
     submitButton: {
         marginTop: theme.spacing(2),
         padding: theme.spacing(1, 4),
@@ -61,7 +56,7 @@ const Edit = () => {
     const classes = useStyles();
 
     const { driver } = usePage().props;
-    const { data, setData, errors, put, processing } = useForm({
+    const { data, setData, errors, put, processing, } = useForm({
         name: driver.data.name || "",
     });
 
@@ -73,6 +68,7 @@ const Edit = () => {
 
         // eslint-disable-next-line no-undef
         put(route("drivers.update", driver.data.id));
+
     };
 
     const handleChange = (e) => {

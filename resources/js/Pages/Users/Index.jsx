@@ -52,6 +52,16 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "space-between",
         padding: "8px",
     },
+    tableActionButton: {
+        color: theme.palette.primary.main,
+        backgroundColor: theme.palette.secondary.main,
+        paddingLeft: theme.spacing(2),
+        paddingRight: theme.spacing(2),
+        paddingTop: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
+        borderRadius: theme.spacing(1),
+        marginRight: theme.spacing(1),
+    },
 }));
 
 // this page should only be accessible by an admin user
@@ -84,6 +94,16 @@ const Index = () => {
             <StyledTableCell align="right">
                 {format(new Date(row.UserCreateDate), "ccc, PP p")}
             </StyledTableCell>
+            {/* actions */}
+            <StyledTableCell align="right">
+                <Link
+                    // eslint-disable-next-line no-undef
+                    href={route("users.edit", row.id)}
+                    className={classes.tableActionButton}
+                >
+                    Edit
+                </Link>
+            </StyledTableCell>
         </StyledTableRow>
     ));
 
@@ -114,6 +134,9 @@ const Index = () => {
                                 </StyledTableCell>
                                 <StyledTableCell align="right">
                                     Created
+                                </StyledTableCell>
+                                <StyledTableCell align="right">
+                                    Actions
                                 </StyledTableCell>
                             </TableRow>
                         </TableHead>

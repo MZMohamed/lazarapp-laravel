@@ -7,6 +7,9 @@ use Inertia\Inertia;
 use App\Models\Group;
 use Inertia\Response;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\UserStoreRequest;
 
 class UserController extends Controller
 {
@@ -50,14 +53,14 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'password' => 'required|string|min:8',
-            'email' => 'required|email|unique:users,email',
-            'group' => 'required|integer',
-        ]);
+        $validated = $request->validated();
+
+        // sanitize groups
+        $groupIds = array_map(function ($group_id) {
+            return ["group_id" => $group_id];
+        }, $validated['groups']);
 
         $user = User::create([
             'name' => $validated['name'],
@@ -65,9 +68,9 @@ class UserController extends Controller
             'email' => $validated['email'],
         ]);
 
-        $user->groups()->attach($validated['group']);
+        $user->groups()->attach($groupIds);
 
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
+        return to_route('users.index')->with('success', 'User created successfully.');
     }
 
     /**
@@ -81,17 +84,26 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        //
+        return Inertia::render('Users/Edit', [
+            'user' => new UserResource($user->load('groups')),
+            'groups' => Group::all()->map(function ($group) {
+                return [
+                    'id' => $group->id,
+                    'name' => $group->name
+                ];
+            })
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(User $user, UserStoreRequest $request): RedirectResponse
     {
-        //
+        $user->update($request->validated());
+        return to_route('users.index')->with('success', 'User Updated');
     }
 
     /**
