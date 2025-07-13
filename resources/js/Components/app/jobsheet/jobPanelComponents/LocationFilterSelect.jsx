@@ -25,17 +25,15 @@ const LocationFilterSelect = ({
 
     const handleChange = (event) => {
         setLocationName(event.target.value);
-        setSelectedLocation(event.target.value)
+        setSelectedLocation(event.target.value);
     };
 
     const locationList = locations
-        .filter(
-            (location) =>
+        .filter(location =>
                 selectedDistrict === 0 ||
                 location.district.id === selectedDistrict
         )
         .map((location) => {
-
             return (
                 <MenuItem key={location.id} value={location.name}>
                     {location.name}
