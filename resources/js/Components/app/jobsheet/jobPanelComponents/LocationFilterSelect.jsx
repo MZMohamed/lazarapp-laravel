@@ -35,7 +35,7 @@ const LocationFilterSelect = ({
         )
         .map((location) => {
             return (
-                <MenuItem key={location.id} value={location.name}>
+                <MenuItem key={location.id} value={location.id}>
                     {location.name}
                 </MenuItem>
             );

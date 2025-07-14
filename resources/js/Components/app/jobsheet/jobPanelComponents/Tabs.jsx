@@ -133,6 +133,8 @@ const TopTabs = ({ groupedJobs, vehicleTypes, selectedLocation, selectedDistrict
         );
     });
 
+    // console.log({groupedJobs},{selectedDistrict}, {selectedLocation});
+
     return (
         <div className={classes.root}>
             <AppBar position="static" color="primary">
@@ -149,6 +151,9 @@ const TopTabs = ({ groupedJobs, vehicleTypes, selectedLocation, selectedDistrict
                     {vehicleTypeTabList}
                 </Tabs>
             </AppBar>
+
+            <h1>We are here</h1>
+
             <div className={classes.childView}>
                 <SwipeableViews
                     axis={theme.direction === "rtl" ? "x-reverse" : "x"}

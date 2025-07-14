@@ -1,3 +1,4 @@
+import JobSheetTable from "@/Components/app/jobsheet/JobSheetTable";
 import MaterialUiLayout from "@/Layouts/MaterialUiLayout";
 import { usePage, Head } from "@inertiajs/react";
 
@@ -8,6 +9,8 @@ const Show = () => {
     <>
         <Head title='Job' />
         <div>Show Job {id}</div>
+
+        <JobSheetTable jobid={id} />
     </>
   )
 }
