@@ -152,8 +152,6 @@ const TopTabs = ({ groupedJobs, vehicleTypes, selectedLocation, selectedDistrict
                 </Tabs>
             </AppBar>
 
-            <h1>We are here</h1>
-
             <div className={classes.childView}>
                 <SwipeableViews
                     axis={theme.direction === "rtl" ? "x-reverse" : "x"}

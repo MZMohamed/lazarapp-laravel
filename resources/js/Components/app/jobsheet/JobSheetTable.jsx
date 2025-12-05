@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import '../../print.css'
-  
+// import '../../print.css'
+
   // mui
 import { makeStyles } from '@material-ui/core/styles';
 import AddBoxIcon from '@material-ui/icons/AddBox';
@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     tableComponent : {
       display: 'flex',
       flexDirection: 'column',
-      
+
     },
     tableActions: {
       alignSelf: 'flex-start',
@@ -112,7 +112,7 @@ const JobSheetTable = ({jobid, PdfSheetItems, setPdfSheetItems, pdfItemAdded, se
     const classes = useStyles()
     let randomNumber
     const [newData, setNewData] = useState({})
-    const [dialogOpen, setDialogOpen] = useState(false)    
+    const [dialogOpen, setDialogOpen] = useState(false)
     const [rows, setRows] = useState([])
     const [jobDetail, setJobDetail] = useState([])
     const [groups, setGroups] = useState(Auth.user.signInUserSession.accessToken.payload["cognito:groups"])
@@ -120,7 +120,7 @@ const JobSheetTable = ({jobid, PdfSheetItems, setPdfSheetItems, pdfItemAdded, se
     const [rowValues, setRowValues] = useState({})
     const [editRowOpen, setEditRowOpen] = useState(false)
     const [jobEdited, setJobEdited] = useState(false)
-    
+
     const [headers, setHeaders] = useState([
       'Street',
       'Gullies',
@@ -148,7 +148,7 @@ const JobSheetTable = ({jobid, PdfSheetItems, setPdfSheetItems, pdfItemAdded, se
         const detailData = pdfItemAdded
           ? { ...newData, mapNumber: PdfSheetItems.length }
           : { ...newData };
-    
+
         addNewDetail(detailData)
           .then((nd) => {
             alert(pdfItemAdded ? "New Map Item Added" : "New Item Added");
@@ -161,8 +161,8 @@ const JobSheetTable = ({jobid, PdfSheetItems, setPdfSheetItems, pdfItemAdded, se
           });
       }
     }, [newData, pdfItemAdded, PdfSheetItems.length, addNewDetail, jobDetail]);
-    
-    
+
+
 
     // Update detail
     useEffect(() => {
@@ -182,7 +182,7 @@ const JobSheetTable = ({jobid, PdfSheetItems, setPdfSheetItems, pdfItemAdded, se
         })
         .catch(err => console.log('Error', err))
       : randomNumber = 1
-      
+
     }, [rowValues, jobEdited])
 
     useEffect(() => {
@@ -192,7 +192,7 @@ const JobSheetTable = ({jobid, PdfSheetItems, setPdfSheetItems, pdfItemAdded, se
     useEffect(() => {
 
       pdfItemAdded ? setDialogOpen(true) : randomNumber = 1
-      
+
     }, [PdfSheetItems])
 
     const handleRowDelete = rowid => event => {
@@ -216,9 +216,9 @@ const JobSheetTable = ({jobid, PdfSheetItems, setPdfSheetItems, pdfItemAdded, se
 
     }
 
-    const headerList = headers.map(header => 
-        <TableCell key={header} align="right" 
-          >{header}</TableCell> 
+    const headerList = headers.map(header =>
+        <TableCell key={header} align="right"
+          >{header}</TableCell>
       )
 
     const sheetTable = jobDetail.map(row => (
@@ -281,7 +281,7 @@ const JobSheetTable = ({jobid, PdfSheetItems, setPdfSheetItems, pdfItemAdded, se
               setRow={setRowValues}
             />
 
-          
+
 
             <div className="noPrint">
               <div className={classes.tableActions}>
@@ -307,7 +307,7 @@ const JobSheetTable = ({jobid, PdfSheetItems, setPdfSheetItems, pdfItemAdded, se
           </IconButton> */}
           </div>
         </div>
-        <PrintJobDetailBox 
+        <PrintJobDetailBox
           jobDetail={jobDetail}
         />
       </>
