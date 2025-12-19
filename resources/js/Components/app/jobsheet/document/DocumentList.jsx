@@ -12,12 +12,6 @@ import ListAltIcon from "@material-ui/icons/ListAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CancelPresentationIcon from "@material-ui/icons/CancelPresentation";
 
-//aws
-import { Amplify, Auth, API, Storage } from "aws-amplify";
-import awsconfig from "../../../aws-exports";
-Amplify.configure(awsconfig);
-// Amplify.Logger.LOG_LEVEL = 'DEBUG'
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -76,7 +70,7 @@ const DocumentList = ({ jobid, documents, setDocuments, isUpdated, setIsUpdated 
   );
 
   useEffect(() => {
-    jobid && 
+    jobid &&
       fetchDocuments(jobid)
         .then((res) => {
           setDocuments(res);

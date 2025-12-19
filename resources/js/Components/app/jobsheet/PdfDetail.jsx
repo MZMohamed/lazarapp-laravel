@@ -12,11 +12,6 @@ import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 // https://github.com/Yuvaleros/material-ui-dropzone
 import { DropzoneArea } from "material-ui-dropzone";
 
-//aws
-import { Amplify, API, Auth, Storage } from "aws-amplify";
-import awsconfig from "../../aws-exports";
-Amplify.configure(awsconfig);
-
 const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),

@@ -7,10 +7,6 @@ import { Button } from "@material-ui/core";
 //components
 import GroupDialogue from "./GroupDialogue";
 
-import { Amplify, Auth, API } from 'aws-amplify';
-import awsconfig from '../../../aws-exports';
-Amplify.configure(awsconfig);
-
   const useStyles = makeStyles(theme => ({
     root: {
       display: 'flex',
@@ -26,10 +22,10 @@ Amplify.configure(awsconfig);
   let nextToken;
 
   const getUser = async (username) => {
-  
+
     const apiName = 'AdminQueries';
     const path = '/getUser';
-    const myInit = { 
+    const myInit = {
         queryStringParameters: {
           "username": username,
         },
@@ -40,7 +36,7 @@ Amplify.configure(awsconfig);
     }
     const { NextToken, ...rest } =  await API.get(apiName, path, myInit);
     nextToken = NextToken;
-  
+
     return rest;
   }
 
@@ -48,7 +44,7 @@ Amplify.configure(awsconfig);
 
     const apiName = 'AdminQueries';
     const path = '/listGroupsForUser';
-    const myInit = { 
+    const myInit = {
         queryStringParameters: {
           "username": username,
         },
@@ -64,109 +60,109 @@ Amplify.configure(awsconfig);
   }
 
 
-  async function disableUser(user) { 
+  async function disableUser(user) {
     const apiName = 'AdminQueries';
     const path = '/disableUser';
     const myInit = {
         body: {
           "username" : user
-        }, 
+        },
         headers: {
           'Content-Type' : 'application/json',
           Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
-        } 
+        }
     }
     return await API.post(apiName, path, myInit);
   }
 
-  async function enableUser(user) { 
+  async function enableUser(user) {
     const apiName = 'AdminQueries';
     const path = '/enableUser';
     const myInit = {
         body: {
           "username" : user
-        }, 
+        },
         headers: {
           'Content-Type' : 'application/json',
           Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
-        } 
+        }
     }
     return await API.post(apiName, path, myInit);
   }
 
-  const removeUserFromGroup = async (username, groupname) => { 
+  const removeUserFromGroup = async (username, groupname) => {
     const apiName = 'AdminQueries';
     const path = '/removeUserFromGroup';
     const myInit = {
         body: {
           "username" : username,
           "groupname": groupname
-        }, 
+        },
         headers: {
           'Content-Type' : 'application/json',
           Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
-        } 
+        }
     }
     return await API.post(apiName, path, myInit);
   }
 
-  const addToGroup = async (username, groupname) => { 
+  const addToGroup = async (username, groupname) => {
     const apiName = 'AdminQueries';
     const path = '/addUserToGroup';
     const myInit = {
         body: {
           "username" : username,
           "groupname": groupname
-        }, 
+        },
         headers: {
           'Content-Type' : 'application/json',
           Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
-        } 
+        }
     }
     return await API.post(apiName, path, myInit);
   }
 
-  const deleteUser = async (username) => { 
+  const deleteUser = async (username) => {
     const apiName = 'AdminQueries';
     const path = '/deleteUser';
     const myInit = {
         body: {
           "username" : username,
-        }, 
+        },
         headers: {
           'Content-Type' : 'application/json',
           Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
-        } 
+        }
     }
     return await API.post(apiName, path, myInit);
   }
 
-  const resetUserPassword = async (username) => { 
+  const resetUserPassword = async (username) => {
     const apiName = 'AdminQueries';
     const path = '/resetUserPassword';
     const myInit = {
         body: {
           "username" : username,
-        }, 
+        },
         headers: {
           'Content-Type' : 'application/json',
           Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
-        } 
+        }
     }
     return await API.post(apiName, path, myInit);
   }
 
-  const signUserOut = async (username) => { 
+  const signUserOut = async (username) => {
     const apiName = 'AdminQueries';
     const path = '/signUserOut';
     const myInit = {
         body: {
           "username" : username,
-        }, 
+        },
         headers: {
           'Content-Type' : 'application/json',
           Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
-        } 
+        }
     }
     return await API.post(apiName, path, myInit);
   }
@@ -253,7 +249,7 @@ const UserDetailActions = ({
 
   return (
     <div className={classes.root}>
-      
+
       <Button
         className={classes.button}
         variant="outlined"

@@ -23,11 +23,7 @@ import Paper from '@material-ui/core/Paper';
 import AddJobSheetItemDialog from "./AddJobSheetItemDialog";
 import EditRow from "./EditRow";
 
-//aws
-import { API, Auth } from 'aws-amplify';
 import PrintJobDetailBox from './PrintJobDetailBox';
-// import awsconfig from '../../../aws-exports';
-// Amplify.configure(awsconfig);
 
 
 const useStyles = makeStyles(theme => ({
@@ -53,57 +49,22 @@ const useStyles = makeStyles(theme => ({
 
   const fetchJobDetails = async (jobid) => {
 
-    const apiName = 'backendapi'
-    const path = `/jobdetails/${jobid}`
-    const myInit = { // OPTIONAL
-        headers: {}, // OPTIONAL
-        response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
-        queryStringParameters: {  // OPTIONAL
-            // name: 'param'
-        }
-    }
-     return await API.get(apiName, path, myInit)
+
   };
 
   const addNewDetail = async (detailItem) => {
 
-    const apiName = "backendapi";
-    const path = `/jobdetails`
-    const myInit = {
-      // OPTIONAL
-      body: detailItem, // replace this with attributes you need
-      headers: {} // OPTIONAL
-    };
 
-    return await API.post(apiName, path, myInit)
   };
 
   const deleteJobDetailRow = async rowid => {
 
-    const apiName = "backendapi";
-    const path = `/jobdetails`
-    const myInit = {
-      // OPTIONAL
-      body: {id: rowid}, // replace this with attributes you need
-      headers: {} // OPTIONAL
-    };
 
-    return await API.del(apiName, path, myInit)
   };
 
   const updateDetail = async (v) => {
 
-    const {id, ...detailItem} = v
 
-    const apiName = "backendapi";
-    const path = `/jobdetails/${id}`
-    const myInit = {
-      // OPTIONAL
-      body: detailItem, // replace this with attributes you need
-      headers: {} // OPTIONAL
-    };
-
-    return await API.post(apiName, path, myInit)
   };
 
 
@@ -115,7 +76,7 @@ const JobSheetTable = ({jobid, PdfSheetItems, setPdfSheetItems, pdfItemAdded, se
     const [dialogOpen, setDialogOpen] = useState(false)
     const [rows, setRows] = useState([])
     const [jobDetail, setJobDetail] = useState([])
-    const [groups, setGroups] = useState(Auth.user.signInUserSession.accessToken.payload["cognito:groups"])
+    const [groups, setGroups] = useState("cognito:groups")
 
     const [rowValues, setRowValues] = useState({})
     const [editRowOpen, setEditRowOpen] = useState(false)
@@ -133,67 +94,63 @@ const JobSheetTable = ({jobid, PdfSheetItems, setPdfSheetItems, pdfItemAdded, se
       'Actions'
     ])
 
-    useEffect(() => {
-      fetchJobDetails(jobid)
-        .then(jd => {
-          setJobDetail(jd)
-        })
-        .catch(() => {
-          alert('Error fetching job detail')
-        })
-    }, [jobid])
+    // useEffect(() => {
+    //   fetchJobDetails(jobid)
+    //     .then(jd => {
+    //       setJobDetail(jd)
+    //     })
+    //     .catch(() => {
+    //       alert('Error fetching job detail')
+    //     })
+    // }, [jobid])
 
-    useEffect(() => {
-      if (Object.entries(newData).length > 0) {
-        const detailData = pdfItemAdded
-          ? { ...newData, mapNumber: PdfSheetItems.length }
-          : { ...newData };
+    // useEffect(() => {
+    //   if (Object.entries(newData).length > 0) {
+    //     const detailData = pdfItemAdded
+    //       ? { ...newData, mapNumber: PdfSheetItems.length }
+    //       : { ...newData };
 
-        addNewDetail(detailData)
-          .then((nd) => {
-            alert(pdfItemAdded ? "New Map Item Added" : "New Item Added");
-            setJobDetail([...jobDetail, nd]);
-            setNewData({});
-            if (pdfItemAdded) setPdfItemAdded(false);
-          })
-          .catch(() => {
-            alert("Error adding new detail");
-          });
-      }
-    }, [newData, pdfItemAdded, PdfSheetItems.length, addNewDetail, jobDetail]);
+    //     addNewDetail(detailData)
+    //       .then((nd) => {
+    //         alert(pdfItemAdded ? "New Map Item Added" : "New Item Added");
+    //         setJobDetail([...jobDetail, nd]);
+    //         setNewData({});
+    //         if (pdfItemAdded) setPdfItemAdded(false);
+    //       })
+    //       .catch(() => {
+    //         alert("Error adding new detail");
+    //       });
+    //   }
+    // }, [newData, pdfItemAdded, PdfSheetItems.length, addNewDetail, jobDetail]);
 
 
 
     // Update detail
-    useEffect(() => {
+    // useEffect(() => {
 
-      Object.entries(rowValues).length > 0 && jobEdited ?
-      updateDetail(rowValues)
-        .then(ud => {
+    //   Object.entries(rowValues).length > 0 && jobEdited ?
+    //   updateDetail(rowValues)
+    //     .then(ud => {
 
-          const tempDetails = [...jobDetail]
-          const detailIndex = tempDetails.findIndex(index => index.id === rowValues.id)
-          tempDetails[detailIndex] = rowValues
-          setJobDetail(tempDetails)
-          alert('Detail Updated')
+    //       const tempDetails = [...jobDetail]
+    //       const detailIndex = tempDetails.findIndex(index => index.id === rowValues.id)
+    //       tempDetails[detailIndex] = rowValues
+    //       setJobDetail(tempDetails)
+    //       alert('Detail Updated')
 
-          setRowValues({})
-          setJobEdited(false)
-        })
-        .catch(err => console.log('Error', err))
-      : randomNumber = 1
+    //       setRowValues({})
+    //       setJobEdited(false)
+    //     })
+    //     .catch(err => console.log('Error', err))
+    //   : randomNumber = 1
 
-    }, [rowValues, jobEdited])
+    // }, [rowValues, jobEdited])
 
-    useEffect(() => {
-      console.log({jobDetail})
-    }, [jobDetail])
+    // useEffect(() => {
 
-    useEffect(() => {
+    //   pdfItemAdded ? setDialogOpen(true) : randomNumber = 1
 
-      pdfItemAdded ? setDialogOpen(true) : randomNumber = 1
-
-    }, [PdfSheetItems])
+    // }, [PdfSheetItems])
 
     const handleRowDelete = rowid => event => {
       event.preventDefault()

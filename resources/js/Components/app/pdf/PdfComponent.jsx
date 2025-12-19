@@ -7,13 +7,6 @@ import pdfjsLib from 'pdfjs-dist';
 
 import jsPDF from 'jspdf';
 
-//aws
-import { Storage } from 'aws-amplify';
-
-// pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
-// pdfjsLib.GlobalWorkerOptions.workerSrc =
-//   "../../../node_modules/pdfjs-dist/build/pdf.worker.js";
-
 const SCALE = 1.0
 const OFFSET = 0
 
@@ -25,14 +18,14 @@ const PdfComponent = ({ src, setSheetItems, sheetItems, jobid, pdfItemAdded, set
 
   const canvasRef = useRef(null)
   const canvasOverlayRef = useRef(null)
-  
+
   const [pdfFile, setPdfFile] = useState({})
 
   useEffect(() => {
-    
+
     setSheetItems && sheetItems ?  setSheetItems([...pins])  : (randomNumber = 1);
   }, [pins])
- 
+
 
   useEffect(() => {
     const fetchPdf = async () => {
@@ -86,13 +79,13 @@ const PdfComponent = ({ src, setSheetItems, sheetItems, jobid, pdfItemAdded, set
   const draw = ((ctx, location, pinNumber) => {
     ctx.fillStyle = 'lime';
     ctx.save();
-    ctx.scale(SCALE, SCALE)  
-  
+    ctx.scale(SCALE, SCALE)
+
     //draw circle
     ctx.beginPath();
     ctx.arc(location.x, location.y, 10, 0, 2 * Math.PI);
     ctx.fill();
-  
+
     ctx.fillStyle = '#333';
     ctx.translate(location.x / SCALE - OFFSET, location.y / SCALE - OFFSET)
     // draw number
@@ -103,7 +96,7 @@ const PdfComponent = ({ src, setSheetItems, sheetItems, jobid, pdfItemAdded, set
   })
 
   useEffect(() => {
-    uploadPdf && saveCanvasToPdf() 
+    uploadPdf && saveCanvasToPdf()
   }, [uploadPdf])
 
   const saveCanvasToPdf = async() => {
@@ -176,7 +169,7 @@ const PdfComponent = ({ src, setSheetItems, sheetItems, jobid, pdfItemAdded, set
                   setPins([...pins, location]);
                 }
               }}
-            />  
+            />
     </>
   );
 }

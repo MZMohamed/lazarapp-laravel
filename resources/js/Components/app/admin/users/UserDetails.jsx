@@ -12,11 +12,6 @@ import { makeStyles } from '@material-ui/core/styles';
 //date-fns
 import { format } from 'date-fns'
 
-//aws
-import { Amplify, Auth, API } from 'aws-amplify';
-import awsconfig from "../../aws-exports";
-Amplify.configure(awsconfig);
-
 // components
 // const OtherComponent = React.lazy(() => import('./OtherComponent'));
 const Loading = lazy(() => import('../../components/Loading'))
@@ -34,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     width: '70%',
     padding: theme.spacing(4),
     marginBottom: theme.spacing(4)
-   
+
   },
   pageTitle: {
     margin: theme.spacing(2)
@@ -50,7 +45,7 @@ async function getUser(username){
 
   const apiName = 'AdminQueries';
   const path = '/getUser';
-  const myInit = { 
+  const myInit = {
       queryStringParameters: {
         "username": username,
       },
@@ -69,7 +64,7 @@ async function listGroupsForUser(username){
 
     const apiName = 'AdminQueries';
     const path = '/listGroupsForUser';
-    const myInit = { 
+    const myInit = {
         queryStringParameters: {
           "username": username,
         },
@@ -87,7 +82,7 @@ async function listGroupsForUser(username){
 const UserDetails = () => {
 
   const classes = useStyles();
-    
+
   const [userDetails, setUserDetails] = useState({})
   const [userGroups, setUserGroups] = useState([])
 
@@ -97,13 +92,13 @@ const UserDetails = () => {
     if (username && username.length > 0) {
 
       getUser(username)
-        .then(ud => 
+        .then(ud =>
           {
             setUserDetails(ud)
           })
 
       listGroupsForUser(username)
-      .then(ug => 
+      .then(ug =>
         {
           setUserGroups(ug.Groups)
         })
@@ -111,7 +106,7 @@ const UserDetails = () => {
     }
   }, [username])
 
-  const groupsList = userGroups.map(g => 
+  const groupsList = userGroups.map(g =>
     <div key={userGroups.indexOf(g)}>
       {g.GroupName}
     </div>)
@@ -151,10 +146,10 @@ const UserDetails = () => {
           <UserDetailItem>
             <Typography component="h6">Last Modified</Typography>
             <Typography>
-              {  
-                  userDetails && 
-                  userDetails.UserLastModifiedDate && 
-                  format(new Date(userDetails.UserLastModifiedDate), 'ccc, PP p') 
+              {
+                  userDetails &&
+                  userDetails.UserLastModifiedDate &&
+                  format(new Date(userDetails.UserLastModifiedDate), 'ccc, PP p')
               }
             </Typography>
           </UserDetailItem>
@@ -163,10 +158,10 @@ const UserDetails = () => {
           <UserDetailItem>
             <Typography component="h6">Created</Typography>
             <Typography>
-              {  
-                  userDetails && 
-                  userDetails.UserCreateDate && 
-                  format(new Date(userDetails.UserCreateDate), 'ccc, PP p') 
+              {
+                  userDetails &&
+                  userDetails.UserCreateDate &&
+                  format(new Date(userDetails.UserCreateDate), 'ccc, PP p')
               }
             </Typography>
           </UserDetailItem>

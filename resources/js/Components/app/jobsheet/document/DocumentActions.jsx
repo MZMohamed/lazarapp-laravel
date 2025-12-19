@@ -5,9 +5,6 @@ import { makeStyles } from "@material-ui/core/styles";
 //components
 import DocumentUpload from "./DocumentUpload";
 
-//aws
-import { Amplify, Auth, API, Storage } from "aws-amplify";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -58,7 +55,7 @@ const DocumentActions = ({jobid, jobNumber, setIsUpdated}) => {
     <DocumentUpload
       className={classes.button}
       jobNumber={jobNumber}
-      jobid={jobid} 
+      jobid={jobid}
       setIsUpdated={setIsUpdated}
     />
   );

@@ -9,13 +9,6 @@ import { Box } from "@material-ui/core";
 // aws css
 import "../imagealbum.css";
 
-//aws
-import { Amplify, API, Storage } from "aws-amplify";
-import awsconfig from "../../../aws-exports";
-import { DockTwoTone } from "@material-ui/icons";
-Amplify.configure(awsconfig);
-// Amplify.Logger.LOG_LEVEL = 'DEBUG'
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",

@@ -10,12 +10,6 @@ import { Box } from "@material-ui/core";
 // aws css
 import "./imagealbum.css";
 
-//aws
-import { Amplify }from "aws-amplify";
-import awsconfig from "../../aws-exports";
-Amplify.configure(awsconfig);
-// Amplify.Logger.LOG_LEVEL = 'DEBUG'
-
 // pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 const SCALE = 1.0;
 const OFFSET = 0;

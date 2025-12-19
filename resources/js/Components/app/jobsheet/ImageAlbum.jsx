@@ -28,13 +28,6 @@ import { DropzoneArea } from "material-ui-dropzone";
 // aws css
 import "./imagealbum.css";
 
-//aws
-import { Amplify, Auth, API, Storage } from "aws-amplify";
-// import { AmplifyS3Image } from "legacy";
-import awsconfig from "../../aws-exports";
-Amplify.configure(awsconfig);
-// Amplify.Logger.LOG_LEVEL = 'DEBUG'
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",

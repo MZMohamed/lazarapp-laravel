@@ -7,10 +7,6 @@ import AddBoxIcon from "@material-ui/icons/AddBox";
 
 import { IconButton, Button } from "@material-ui/core";
 
-//aws
-import { Amplify, API } from "aws-amplify";
-import awsconfig from "../../../aws-exports";
-Amplify.configure(awsconfig);
 
 const useStyles = makeStyles((theme) => ({
   button: {

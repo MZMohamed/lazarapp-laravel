@@ -7,13 +7,6 @@ import { Box } from "@material-ui/core";
 // aws css
 import "./imagealbum.css";
 
-//aws
-import { Amplify }from "aws-amplify";
-// import { AmplifyS3Image } from "legacy";
-import awsconfig from "../../aws-exports";
-Amplify.configure(awsconfig);
-// Amplify.Logger.LOG_LEVEL = 'DEBUG'
-
 const useStyles = makeStyles(() => ({
   root: {
     display: "flex",

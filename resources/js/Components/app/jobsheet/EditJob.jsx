@@ -24,11 +24,6 @@ import {
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 
-
-//aws
-import { Amplify, Auth, API, Storage } from 'aws-amplify';
-import awsconfig from '../../aws-exports';
-
 Amplify.configure(awsconfig);
 
 const useStyles = makeStyles(theme => ({
@@ -185,7 +180,7 @@ export default function EditJob({ open, setOpen, job, setJob, jobid, jobEdited, 
 
   useEffect(() => {
     if (!job) return;
-  
+
     setValues((prevValues) => ({
       ...prevValues,
       agentId: job.agentId,
@@ -260,10 +255,10 @@ export default function EditJob({ open, setOpen, job, setJob, jobid, jobEdited, 
         dumpingLocation: values.dumpingLocation,
         vehicles: values.vehicles
       });
-  
+
       setJobEdited(true)
       setOpen(false);
-      
+
     } else {
       alert("Vehicle Error: At least one vehicle is required")
     }

@@ -7,11 +7,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-//aws
-import { Amplify, API } from "aws-amplify";
-import awsconfig from "../../../aws-exports";
-Amplify.configure(awsconfig);
-
 const addSheetNumber = async (jobid, sheetNumber) => {
   const apiName = "backendapi";
   const path = "/sheetnumbers";

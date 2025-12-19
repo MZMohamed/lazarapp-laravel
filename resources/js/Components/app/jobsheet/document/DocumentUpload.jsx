@@ -2,19 +2,11 @@ import React, { useEffect, useState } from "react";
 
 // mui
 import { makeStyles } from "@material-ui/core/styles";
-import { 
-  InputBase, 
-  InputLabel, 
-  // Button 
+import {
+  InputBase,
+  InputLabel,
+  // Button
 } from "@material-ui/core";
-
-// import AddBoxIcon from "@material-ui/icons/AddBox";
-
-//aws
-import { Amplify, Auth, API, Storage } from "aws-amplify";
-import awsconfig from "../../../aws-exports";
-Amplify.configure(awsconfig);
-// Amplify.Logger.LOG_LEVEL = 'DEBUG'
 
 const useStyles = makeStyles((theme) => ({
   muiButton: {

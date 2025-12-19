@@ -18,9 +18,6 @@ import JobSheetListItem from "./JobSheetListItem";
 import PrintJobBox from "./PrintJobBox";
 import DocumentUpload from "./document/DocumentUpload";
 
-//aws
-import { Amplify, Auth, API, Storage } from "aws-amplify";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -175,7 +172,7 @@ const JobSheetItems = ({
     job && setJobNumber(job.jobNumber);
 
     job && !job.deletedAt  && setFetchingJob(false)
-  }, [job]);  
+  }, [job]);
 
   // format(new Date(2014, 1, 11), 'MM/dd/yyyy')
   //=> '02/11/2014'
@@ -310,7 +307,7 @@ const JobSheetItems = ({
     console.log(fetchingJob)
 
   }, [fetchingJob])
-  
+
 
   if (fetchingJob) {
     return (

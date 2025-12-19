@@ -1,7 +1,6 @@
 import React from "react";
 // mui
 import { makeStyles } from "@material-ui/core/styles";
-import { Amplify }from "aws-amplify";
 // import { AmplifyS3Album } from "legacy";
 import awsconfig from "../../aws-exports";
 

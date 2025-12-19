@@ -8,11 +8,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Chip from '@material-ui/core/Chip';
 
-//aws
-import { Amplify, Auth, API } from 'aws-amplify';
-import awsconfig from '../../../aws-exports';
-Amplify.configure(awsconfig);
-
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -45,7 +40,7 @@ const MenuProps = {
 
 const fetchOperators = async () => {
   const apiName = 'backendapi';
-  const path = '/operators'; 
+  const path = '/operators';
   const myInit = { // OPTIONAL
       headers: {}, // OPTIONAL
       response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
@@ -101,7 +96,7 @@ const OperatorSelect = ({setValues, values, operatorHelperTextState, jobCreated}
 
   };
 
-  return (      
+  return (
       <FormControl required error={operatorHelperTextState} className={classes.formControl}>
         <InputLabel id="mutiple-chip-label">Operators</InputLabel>
         <Select

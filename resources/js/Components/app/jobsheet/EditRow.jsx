@@ -19,10 +19,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-//aws
-import { Amplify, Auth, API, Storage } from "aws-amplify";
-import awsconfig from "../../aws-exports";
-
 const EditRow = ({
   row,
   setRow,

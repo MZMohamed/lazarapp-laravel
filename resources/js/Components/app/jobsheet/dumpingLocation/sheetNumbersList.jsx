@@ -14,11 +14,6 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CancelPresentationIcon from '@material-ui/icons/CancelPresentation';
 
-//aws
-import { Amplify, API, Auth } from "aws-amplify";
-import awsconfig from "../../../aws-exports";
-Amplify.configure(awsconfig);
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
