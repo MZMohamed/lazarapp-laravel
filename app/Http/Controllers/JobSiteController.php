@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Group;
 use App\Models\JobSite;
+use App\Models\JobDetail;
 use App\Models\Vehicle;
 use App\Models\District;
 use App\Models\Location;
@@ -76,8 +77,11 @@ class JobSiteController extends Controller
      */
     public function show(string $id)
     {
+
+        $job = JobSite::with('details')->findOrFail($id);
+
         return Inertia::render('Jobs/Show',[
-            'id' => $id
+            'job' => $job,
         ]);
     }
 

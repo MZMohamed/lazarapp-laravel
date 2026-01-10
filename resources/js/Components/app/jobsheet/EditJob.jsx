@@ -24,8 +24,6 @@ import {
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 
-Amplify.configure(awsconfig);
-
 const useStyles = makeStyles(theme => ({
   picker: {
     margin: theme.spacing(1)
@@ -60,68 +58,68 @@ const MenuProps = {
 };
 
 const fetchAgents = async () => {
-  const apiName = 'backendapi';
-  const path = '/agents';
-  const myInit = { // OPTIONAL
-    headers: {}, // OPTIONAL
-    response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
-    queryStringParameters: {  // OPTIONAL
-      // name: 'param'
-    }
-  }
-  return await API.get(apiName, path, myInit)
+  // const apiName = 'backendapi';
+  // const path = '/agents';
+  // const myInit = { // OPTIONAL
+  //   headers: {}, // OPTIONAL
+  //   response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
+  //   queryStringParameters: {  // OPTIONAL
+  //     // name: 'param'
+  //   }
+  // }
+  // return await API.get(apiName, path, myInit)
 };
 
 const fetchDrivers = async () => {
-  const apiName = 'backendapi';
-  const path = '/drivers';
-  const myInit = { // OPTIONAL
-    headers: {}, // OPTIONAL
-    response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
-    queryStringParameters: {  // OPTIONAL
-      // name: 'param'
-    }
-  }
-  return await API.get(apiName, path, myInit)
+  // const apiName = 'backendapi';
+  // const path = '/drivers';
+  // const myInit = { // OPTIONAL
+  //   headers: {}, // OPTIONAL
+  //   response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
+  //   queryStringParameters: {  // OPTIONAL
+  //     // name: 'param'
+  //   }
+  // }
+  // return await API.get(apiName, path, myInit)
 };
 
 const fetchVehicles = async () => {
-  const apiName = 'backendapi';
-  const path = '/vehicles';
-  const myInit = { // OPTIONAL
-    headers: {}, // OPTIONAL
-    response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
-    queryStringParameters: {  // OPTIONAL
-      // name: 'param'
-    }
-  }
-  return await API.get(apiName, path, myInit)
+  // const apiName = 'backendapi';
+  // const path = '/vehicles';
+  // const myInit = { // OPTIONAL
+  //   headers: {}, // OPTIONAL
+  //   response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
+  //   queryStringParameters: {  // OPTIONAL
+  //     // name: 'param'
+  //   }
+  // }
+  // return await API.get(apiName, path, myInit)
 };
 
 const fetchDistricts = async () => {
-  const apiName = 'backendapi';
-  const path = '/districts';
-  const myInit = { // OPTIONAL
-    headers: {}, // OPTIONAL
-    response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
-    queryStringParameters: {  // OPTIONAL
-      // name: 'param'
-    }
-  }
-  return await API.get(apiName, path, myInit)
+  // const apiName = 'backendapi';
+  // const path = '/districts';
+  // const myInit = { // OPTIONAL
+  //   headers: {}, // OPTIONAL
+  //   response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
+  //   queryStringParameters: {  // OPTIONAL
+  //     // name: 'param'
+  //   }
+  // }
+  // return await API.get(apiName, path, myInit)
 };
 
 const fetchLocations = async () => {
-  const apiName = 'backendapi';
-  const path = '/locations';
-  const myInit = { // OPTIONAL
-    headers: {}, // OPTIONAL
-    response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
-    queryStringParameters: {  // OPTIONAL
-      // name: 'param'
-    }
-  }
-  return await API.get(apiName, path, myInit)
+  // const apiName = 'backendapi';
+  // const path = '/locations';
+  // const myInit = { // OPTIONAL
+  //   headers: {}, // OPTIONAL
+  //   response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
+  //   queryStringParameters: {  // OPTIONAL
+  //     // name: 'param'
+  //   }
+  // }
+  // return await API.get(apiName, path, myInit)
 };
 
 export default function EditJob({ open, setOpen, job, setJob, jobid, jobEdited, setJobEdited }) {
@@ -130,7 +128,9 @@ export default function EditJob({ open, setOpen, job, setJob, jobid, jobEdited, 
   const theme = useTheme();
 
   let random
-  const [groups, setGroups] = useState(Auth.user.signInUserSession.accessToken.payload["cognito:groups"])
+  const [groups, setGroups] = useState([]
+    // Auth.user.signInUserSession.accessToken.payload["cognito:groups"]
+  )
   const [agents, setAgents] = useState([])
   const [drivers, setDrivers] = useState([])
   const [vehicles, setVehicles] = useState([])
@@ -150,33 +150,33 @@ export default function EditJob({ open, setOpen, job, setJob, jobid, jobEdited, 
     vehicles: []
   });
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    fetchAgents()
-      .then(res => setAgents(res))
-      .catch(err => alert('Error fetching agents: ', err))
+  //   fetchAgents()
+  //     .then(res => setAgents(res))
+  //     .catch(err => alert('Error fetching agents: ', err))
 
-    fetchDrivers()
-      .then(res => setDrivers(res))
-      .catch(err => alert('Error fetching drivers: ', err))
+  //   fetchDrivers()
+  //     .then(res => setDrivers(res))
+  //     .catch(err => alert('Error fetching drivers: ', err))
 
-    fetchVehicles()
-      .then(res => setVehicles(res))
-      .catch(err => alert('Error fetching vehicles: ', err))
+  //   fetchVehicles()
+  //     .then(res => setVehicles(res))
+  //     .catch(err => alert('Error fetching vehicles: ', err))
 
-    fetchDistricts()
-      .then(res => setDistricts(res))
-      .catch(err => alert('Error fetching districts: ', err))
-
-
-    fetchLocations()
-      .then(res => setLocations(res))
-      .catch(err => alert('Error fetching locations: ', err))
-
-    // console.log(theme)
+  //   fetchDistricts()
+  //     .then(res => setDistricts(res))
+  //     .catch(err => alert('Error fetching districts: ', err))
 
 
-  }, [])
+  //   fetchLocations()
+  //     .then(res => setLocations(res))
+  //     .catch(err => alert('Error fetching locations: ', err))
+
+  //   // console.log(theme)
+
+
+  // }, [])
 
   useEffect(() => {
     if (!job) return;

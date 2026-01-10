@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, Typography, List, ListItem, Divider, ListItemText } from '@material-ui/core';
 
 //assets
-import Logo from "../../assets/images/LAZAR_PRIMARY_BLCK.png"
+import Logo from "../../../../images/LAZAR_PRIMARY_BLCK.png"
 
 const useStyles = makeStyles(theme => ({
   root: {

@@ -69,13 +69,13 @@ const useStyles = makeStyles(theme => ({
 
 
 
-const JobSheetTable = ({jobid, PdfSheetItems, setPdfSheetItems, pdfItemAdded, setPdfItemAdded, adminApproved, setAdminApproved}) => {
+const JobSheetTable = ({jobid, PdfSheetItems, setPdfSheetItems, pdfItemAdded, setPdfItemAdded, adminApproved, setAdminApproved, jobDetail}) => {
     const classes = useStyles()
     let randomNumber
     const [newData, setNewData] = useState({})
     const [dialogOpen, setDialogOpen] = useState(false)
     const [rows, setRows] = useState([])
-    const [jobDetail, setJobDetail] = useState([])
+    // const [jobDetail, setJobDetail] = useState([])
     const [groups, setGroups] = useState("cognito:groups")
 
     const [rowValues, setRowValues] = useState({})
@@ -93,16 +93,6 @@ const JobSheetTable = ({jobid, PdfSheetItems, setPdfSheetItems, pdfItemAdded, se
       'Map',
       'Actions'
     ])
-
-    // useEffect(() => {
-    //   fetchJobDetails(jobid)
-    //     .then(jd => {
-    //       setJobDetail(jd)
-    //     })
-    //     .catch(() => {
-    //       alert('Error fetching job detail')
-    //     })
-    // }, [jobid])
 
     // useEffect(() => {
     //   if (Object.entries(newData).length > 0) {

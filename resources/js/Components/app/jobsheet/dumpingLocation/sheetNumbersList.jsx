@@ -23,36 +23,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const fetchSheetNumbers = async (jobid) => {
-  const apiName = "backendapi";
-  const path = `/sheetnumbers/${jobid}`;
-  const myInit = {
-    // OPTIONAL
-    headers: {}, // OPTIONAL
-    response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
-    queryStringParameters: {
-      // OPTIONAL
-      // name: 'param'
-    },
-  };
-  return await API.get(apiName, path, myInit);
+  // const apiName = "backendapi";
+  // const path = `/sheetnumbers/${jobid}`;
+  // const myInit = {
+  //   // OPTIONAL
+  //   headers: {}, // OPTIONAL
+  //   response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
+  //   queryStringParameters: {
+  //     // OPTIONAL
+  //     // name: 'param'
+  //   },
+  // };
+  // return await API.get(apiName, path, myInit);
 };
 
 const deleteSheetNumber = async (id) => {
-  const apiName = "backendapi";
-  const path = `/sheetnumbers`;
-  const myInit = {
-    // OPTIONAL
-    body: { id: id }, // replace this with attributes you need
-    headers: {}, // OPTIONAL
-  };
+  // const apiName = "backendapi";
+  // const path = `/sheetnumbers`;
+  // const myInit = {
+  //   // OPTIONAL
+  //   body: { id: id }, // replace this with attributes you need
+  //   headers: {}, // OPTIONAL
+  // };
 
-  await API.del(apiName, path, myInit);
+  // await API.del(apiName, path, myInit);
 };
 
 const SheetNumbersList = ({ jobid, isEdited, setIsEdited }) => {
   const classes = useStyles();
-  const [groups, setGroups] = useState(
-    Auth.user.signInUserSession.accessToken.payload["cognito:groups"]
+  const [groups, setGroups] = useState([]
+    // Auth.user.signInUserSession.accessToken.payload["cognito:groups"]
   );
 
   const [editOpen, setEditOpen] = useState(false);
@@ -60,25 +60,25 @@ const SheetNumbersList = ({ jobid, isEdited, setIsEdited }) => {
 
   const [editingItem, setEditingItem] = useState({});
 
-  useEffect(() => {
-    jobid &&
-      fetchSheetNumbers(jobid)
-        .then((res) => {
-          setSheetNumbers(res);
-        })
-        .catch((err) => alert(`Error fetching Sheet Numbers: ${err}`));
-  }, [jobid]);
+  // useEffect(() => {
+  //   jobid &&
+  //     fetchSheetNumbers(jobid)
+  //       .then((res) => {
+  //         setSheetNumbers(res);
+  //       })
+  //       .catch((err) => alert(`Error fetching Sheet Numbers: ${err}`));
+  // }, [jobid]);
 
-  useEffect(() => {
-    isEdited &&
-      fetchSheetNumbers(jobid)
-        .then((res) => {
-          setSheetNumbers(res);
-        })
-        .catch((err) => alert(`Error fetching Sheet Numbers: ${err}`));
+  // useEffect(() => {
+  //   isEdited &&
+  //     fetchSheetNumbers(jobid)
+  //       .then((res) => {
+  //         setSheetNumbers(res);
+  //       })
+  //       .catch((err) => alert(`Error fetching Sheet Numbers: ${err}`));
 
-    isEdited && setIsEdited(false);
-  }, [isEdited, jobid]);
+  //   isEdited && setIsEdited(false);
+  // }, [isEdited, jobid]);
 
   const handleRowDelete = (id) => (event) => {
     deleteSheetNumber(id)

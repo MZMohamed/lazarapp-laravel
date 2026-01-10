@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import "../../print.css";
+import "../../../../css/print.css";
 
 // mui
 import { makeStyles, styled } from "@material-ui/core/styles";
@@ -60,40 +60,40 @@ const ListItem = styled('li')(({ theme }) => ({
 }));
 
 const fetchJob = async (jobid) => {
-  const apiName = "backendapi";
-  const path = `/jobs/job/${jobid}`;
-  const myInit = {
-    // OPTIONAL
-    headers: {}, // OPTIONAL
-    response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
-    queryStringParameters: {
-      // OPTIONAL
-      // name: 'param'
-    },
-  };
-  return await API.get(apiName, path, myInit);
+  // const apiName = "backendapi";
+  // const path = `/jobs/job/${jobid}`;
+  // const myInit = {
+  //   // OPTIONAL
+  //   headers: {}, // OPTIONAL
+  //   response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
+  //   queryStringParameters: {
+  //     // OPTIONAL
+  //     // name: 'param'
+  //   },
+  // };
+  // return await API.get(apiName, path, myInit);
 };
 
 const updateJob = async (job, jobid) => {
-  const apiName = "backendapi";
-  const path = `/jobs/${jobid}`;
-  const myInit = {
-    // OPTIONAL
-    body: { ...job }, // replace this with attributes you need
-    headers: {}, // OPTIONAL
-  };
+  // const apiName = "backendapi";
+  // const path = `/jobs/${jobid}`;
+  // const myInit = {
+  //   // OPTIONAL
+  //   body: { ...job }, // replace this with attributes you need
+  //   headers: {}, // OPTIONAL
+  // };
 
-  // console.log(myInit)
+  // // console.log(myInit)
 
-  return await API.put(apiName, path, myInit);
+  // return await API.put(apiName, path, myInit);
 };
 
 const JobSheetItems = ({
-  jobid,
-  setAdminApproved,
-  setJobNumber,
   job,
-  setJob,
+  // jobid,
+  // setAdminApproved,
+  // setJobNumber,
+  // setJob,
 }) => {
   const classes = useStyles();
 
@@ -101,38 +101,38 @@ const JobSheetItems = ({
   const [jobEdited, setJobEdited] = useState(false);
   const [fetchingJob, setFetchingJob] = useState(true);
   const [groups, setGroups] = useState(
-    Auth.user.signInUserSession.accessToken.payload["cognito:groups"]
+    // Auth.user.signInUserSession.accessToken.payload["cognito:groups"]
   );
 
-  useEffect(() => {
-  if (jobEdited) {
-    updateJob(
-      {
-        timeOnSite: job.timeOnSite || null,
-        timeOffSite: job.timeOffSite || null,
-        agentId: job.agentId || null,
-        driverId: job.driverId || null,
-        vehicles: job.vehicles || null,
-        districtId: job.districtId || null,
-        locationId: job.locationId || null,
-        remarks: job.remarks || null,
-        dumpingLocation: job.dumpingLocation || null,
-      },
-      jobid
-    )
-      .then((rowsUpdated) => {
-        fetchJob(jobid).then((j) => {
-          if (j && Object.entries(j).length > 0) {
-            setJob(j);
-            alert("Job Changed");
-          }
-        });
-      })
-      .catch(() => alert("Unable to edit job"));
+//   useEffect(() => {
+//   if (jobEdited) {
+//     updateJob(
+//       {
+//         timeOnSite: job.timeOnSite || null,
+//         timeOffSite: job.timeOffSite || null,
+//         agentId: job.agentId || null,
+//         driverId: job.driverId || null,
+//         vehicles: job.vehicles || null,
+//         districtId: job.districtId || null,
+//         locationId: job.locationId || null,
+//         remarks: job.remarks || null,
+//         dumpingLocation: job.dumpingLocation || null,
+//       },
+//       jobid
+//     )
+//       .then((rowsUpdated) => {
+//         fetchJob(jobid).then((j) => {
+//           if (j && Object.entries(j).length > 0) {
+//             setJob(j);
+//             alert("Job Changed");
+//           }
+//         });
+//       })
+//       .catch(() => alert("Unable to edit job"));
 
-    setJobEdited(false);
-  }
-}, [jobEdited, job, jobid, updateJob, fetchJob, setJob]);
+//     setJobEdited(false);
+//   }
+// }, [jobEdited, job, jobid, updateJob, fetchJob, setJob]);
 
   const handleApprove = (approveType) => {
     updateJob(
@@ -154,22 +154,22 @@ const JobSheetItems = ({
       .catch(() => alert("Unable to edit job"));
   };
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    jobid &&
-      jobid !== -1 &&
-      fetchJob(jobid).then((j) => {
+  //   jobid &&
+  //     jobid !== -1 &&
+  //     fetchJob(jobid).then((j) => {
 
-        j && Object.entries(j).length > 0 && setJob(j);
-      });
-  }, [jobid]);
+  //       j && Object.entries(j).length > 0 && setJob(j);
+  //     });
+  // }, [jobid]);
 
   useEffect(() => {
     console.log(job)
 
     job && job.adminApproved && setAdminApproved(job.adminApproved);
 
-    job && setJobNumber(job.jobNumber);
+    // job && setJobNumber(job.jobNumber);
 
     job && !job.deletedAt  && setFetchingJob(false)
   }, [job]);
@@ -323,8 +323,8 @@ const JobSheetItems = ({
         open={open}
         setOpen={setOpen}
         job={job}
-        setJob={setJob}
-        jobid={jobid}
+        // setJob={setJob}
+        jobid={job.id}
         jobEdited={jobEdited}
         setJobEdited={setJobEdited}
       />

@@ -72,4 +72,9 @@ class JobSite extends Model
     {
         return $this->belongsToMany(Vehicle::class, 'job_vehicles', 'job_id', 'vehicle_id');
     }
+
+    public function details()
+    {
+        return $this->hasMany(JobDetail::class, 'jobId');
+    }
 }
