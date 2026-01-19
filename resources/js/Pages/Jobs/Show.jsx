@@ -6,6 +6,7 @@ import MaterialUiLayout from "@/Layouts/MaterialUiLayout";
 import PrintOptions from "@/Components/app/jobsheet/print/";
 import JobSheetItems from "@/Components/app/jobsheet/JobSheetItems";
 import DumpingLocation from "@/Components/app/jobsheet/dumpingLocation/";
+import Document from "@/Components/app/jobsheet/document";
 
 // mui
 import { makeStyles } from "@material-ui/core/styles";
@@ -45,6 +46,9 @@ const Show = () => {
   const classes = useStyles();
     // used for printing state
   const [printOption, setPrintOption] = useState(0);
+  
+  const [showPdf, setShowPdf] = useState(false);
+  const [pdf, setPdf] = useState("");
 
   console.log('details', job);
 
@@ -98,10 +102,61 @@ const Show = () => {
           />
         </Grid>
 
+        <Grid item xs={12}>
+          <JobSheetTable 
+            className="noPrint"
+            jobDetail={job.details} 
+          />
+        </Grid>
+
+
+        <Grid
+          className="noPrint"
+          item
+          xs={12}
+          container
+          justifyContent="center"
+          alignItems="center"
+          direction="column"
+        >
+          <Grid className="noPrint" item xs={12}>
+            {pdf && pdf !== "" && showPdf && (
+              <Button
+                variant="contained"
+                color="secondary"
+                className={clsx(classes.button, "noPrint")}
+                startIcon={<PictureAsPdfIcon />}
+                onClick={() => setUploadPdf(true)}
+              >
+                Save Map
+              </Button>
+            )}
+          </Grid>
+          {/* <Grid item xs={12} className={clsx(classes.sheet, "noPrint")}>
+            {pdf && pdf !== "" && showPdf && (
+              <PdfComponent
+                src={pdf}
+                jobid={jobid}
+                setSheetItems={setSheetItems}
+                sheetItems={sheetItems}
+                pdfItemAdded={pdfItemAdded}
+                setPdfItemAdded={setPdfItemAdded}
+                uploadPdf={uploadPdf}
+                setUploadPdf={setUploadPdf}
+                pdfKey={pdfKey}
+              />
+            )}
+          </Grid> */}
+        </Grid>
+        
+
+        <Grid item xs={12} className="noPrint">
+          <Document jobid={job.id} jobNumber={job.jobNumber}/>
+        </Grid>
 
       </Grid>
 
-      <JobSheetTable jobDetail={job.details} />
+      
     </div>
   )
 }

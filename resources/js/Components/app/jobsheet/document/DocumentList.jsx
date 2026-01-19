@@ -21,30 +21,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const deleteDocFromDb = async (id) => {
-  const apiName = "backendapi";
-  const path = `/documentuploads`;
-  const myInit = {
-    // OPTIONAL
-    body: { id: id }, // replace this with attributes you need
-    headers: {}, // OPTIONAL
-  };
-
-  await API.del(apiName, path, myInit);
 };
 
 const fetchDocuments = async (jobid) => {
-  const apiName = "backendapi";
-  const path = `/documentuploads/${jobid}`;
-  const myInit = {
-    // OPTIONAL
-    headers: {}, // OPTIONAL
-    response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
-    queryStringParameters: {
-      // OPTIONAL
-      // name: 'param'
-    },
-  };
-  return await API.get(apiName, path, myInit);
 };
 
 const downloadBlob = (blob, filename) => {
@@ -65,19 +44,17 @@ const downloadBlob = (blob, filename) => {
 
 const DocumentList = ({ jobid, documents, setDocuments, isUpdated, setIsUpdated }) => {
   const classes = useStyles();
-  const [groups, setGroups] = useState(
-    Auth.user.signInUserSession.accessToken.payload["cognito:groups"]
-  );
+  const [groups, setGroups] = useState([]);
 
-  useEffect(() => {
-    jobid &&
-      fetchDocuments(jobid)
-        .then((res) => {
-          setDocuments(res);
-          isUpdated && setIsUpdated(false)
-        })
-        .catch((err) => alert(`Error fetching documents: ${err}`));
-  }, [jobid, isUpdated]);
+  // useEffect(() => {
+  //   jobid &&
+  //     fetchDocuments(jobid)
+  //       .then((res) => {
+  //         setDocuments(res);
+  //         isUpdated && setIsUpdated(false)
+  //       })
+  //       .catch((err) => alert(`Error fetching documents: ${err}`));
+  // }, [jobid, isUpdated]);
 
   const handleRowDelete = (doc) => (event) => {
     Storage.remove(doc.key)

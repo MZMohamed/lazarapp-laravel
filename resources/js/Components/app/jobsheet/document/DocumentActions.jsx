@@ -44,9 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 const DocumentActions = ({jobid, jobNumber, setIsUpdated}) => {
   const classes = useStyles();
-  const [groups, setGroups] = useState(
-    Auth.user.signInUserSession.accessToken.payload["cognito:groups"]
-  );
+  const [groups, setGroups] = useState([]);
 
   {
     /* Document Upload button logic */
