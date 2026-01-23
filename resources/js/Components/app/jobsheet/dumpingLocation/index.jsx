@@ -5,7 +5,7 @@ import SheetNumbersList from "./sheetNumbersList";
 import DumpingLocationActions from "./dumpingLocationActions";
 
 
-const Index = ({ jobid, dumpingLocation }) => {
+const Index = ({ dumpingLocation, dumpingLocationSheetNumbers }) => {
   // use to update sheet number list
   const [isEdited, setIsEdited] = useState(false);
 
@@ -16,11 +16,11 @@ const Index = ({ jobid, dumpingLocation }) => {
       </Typography>
       <LocationSection dumpingLocation={dumpingLocation} />
       <SheetNumbersList
-        jobid={jobid}
         isEdited={isEdited}
         setIsEdited={setIsEdited}
+        sheetNumbers={dumpingLocationSheetNumbers}
       />
-      <DumpingLocationActions jobid={jobid} setIsEdited={setIsEdited} />
+      <DumpingLocationActions setIsEdited={setIsEdited} />
     </>
   );
 };

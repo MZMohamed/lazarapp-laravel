@@ -16,9 +16,9 @@ class DistrictSeeder extends Seeder
         $districts = [
             'Quetzal Trading',
             'District 8',
-            'Test 1',
-            'Test 2',
-            'Test 3',
+            // 'Test 1',
+            // 'Test 2',
+            // 'Test 3',
         ];
 
         foreach ($districts as $key) {

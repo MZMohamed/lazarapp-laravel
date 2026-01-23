@@ -63,8 +63,10 @@ const useStyles = makeStyles((theme) => ({
     border: "1px solid #ddd" /* Gray border */,
     borderRadius: "4px" /* Rounded border */,
     padding: "5px" /* Some padding */,
-    // width: "150px" /* Set a small width */,
-    // height: "auto",
+    width: "200px" /* Thumbnail width */,
+    height: "auto",
+    objectFit: "cover",
+    cursor: "pointer",
   },
   s3imageItem: {
     display: "flex",
@@ -91,81 +93,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MyTheme = {
-  photoPickerButton: {
-    display: "inline-block",
-    // padding: "6px 12px",
-    // marginTop: "8px",
-    // marginBottom: "8px",
-    fontSize: "14px",
-    fontWeight: 600,
-    lineHeight: "1.42857143",
-    textAlign: "center",
-    whiteSpace: "nowrap",
-    verticalAlign: "middle",
-    touchAction: "manipulation",
-    cursor: "pointer",
-    userSelect: "none",
-    backgroundImage: "none",
-    border: "1px solid transparent",
-    borderRadius: "4px",
-    color: "white",
-    backgroundColor: "#40ae49",
-    boxShadow: "0 1px 4px rgba(0, 0, 0, .6)",
-    transition: "background 0.8s",
-  },
-  photoImg: {
-    border: "1px solid #40ae49" /* Gray border */,
-    borderRadius: "4px" /* Rounded border */,
-    padding: "5px" /* Some padding */,
-    width: "300px" /* Set a small width */,
-    height: "auto",
-  },
-  pickerPreview: {
-    width: 480,
-    height: "auto",
-    objectFit: "cover",
-    borderRadius: "8px",
-  },
-};
-
 const createImageinDb = async (key, jobId) => {
-  const apiName = "backendapi";
-  const path = "/images";
-  const myInit = {
-    // OPTIONAL
-    body: { ...key, jobId }, // replace this with attributes you need
-    headers: {}, // OPTIONAL
-  };
+  // const apiName = "backendapi";
+  // const path = "/images";
+  // const myInit = {
+  //   // OPTIONAL
+  //   body: { ...key, jobId }, // replace this with attributes you need
+  //   headers: {}, // OPTIONAL
+  // };
 
-  await API.post(apiName, path, myInit);
+  // await API.post(apiName, path, myInit);
 };
 
 const deleteImageFromDb = async (key, jobId) => {
-  const apiName = "backendapi";
-  const path = "/images";
-  const myInit = {
-    // OPTIONAL
-    body: { id: key.id, jobId }, // replace this with attributes you need
-    headers: {}, // OPTIONAL
-  };
+  // const apiName = "backendapi";
+  // const path = "/images";
+  // const myInit = {
+  //   // OPTIONAL
+  //   body: { id: key.id, jobId }, // replace this with attributes you need
+  //   headers: {}, // OPTIONAL
+  // };
 
-  await API.del(apiName, path, myInit);
+  // await API.del(apiName, path, myInit);
 };
 
 const fetchImages = async (jobid) => {
-  const apiName = "backendapi";
-  const path = `/images/${jobid}`;
-  const myInit = {
-    // OPTIONAL
-    headers: {}, // OPTIONAL
-    response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
-    queryStringParameters: {
-      // OPTIONAL
-      // name: 'param'
-    },
-  };
-  return await API.get(apiName, path, myInit);
+  // const apiName = "backendapi";
+  // const path = `/images/${jobid}`;
+  // const myInit = {
+  //   // OPTIONAL
+  //   headers: {}, // OPTIONAL
+  //   response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
+  //   queryStringParameters: {
+  //     // OPTIONAL
+  //     // name: 'param'
+  //   },
+  // };
+  // return await API.get(apiName, path, myInit);
 };
 
 const downloadBlob = (blob, filename) => {
@@ -184,7 +148,7 @@ const downloadBlob = (blob, filename) => {
   return a;
 };
 
-const ImageAlbum = ({ jobid, images, setImages, adminApproved, jobNumber }) => {
+const ImageAlbum = ({ jobid, images, adminApproved, jobNumber }) => {
   const classes = useStyles();
 
   // use the below to add extensions to files for renaming purposes use js object property
@@ -201,48 +165,46 @@ const ImageAlbum = ({ jobid, images, setImages, adminApproved, jobNumber }) => {
   const [files, setFiles] = useState([]);
   const [numercicKey, setNumericKey] = useState(0);
   const [uploadImages, setUploadImages] = useState(false);
-  const [groups, setGroups] = useState(
-    Auth.user.signInUserSession.accessToken.payload["cognito:groups"]
-  );
+  const [groups, setGroups] = useState([]);
 
-  useEffect(() => {
-    if (files && files.length > 0 && renameDisabled) {
-      saveFile();
-    }
-  }, [files, renameDisabled, saveFile]);
+  // useEffect(() => {
+  //   if (files && files.length > 0 && renameDisabled) {
+  //     saveFile();
+  //   }
+  // }, [files, renameDisabled, saveFile]);
 
-  const deleteImage = (image) => {
-    Storage.remove(image.key).then((result) =>
-      deleteImageFromDb(image, jobid)
-        .then((res) => {
-          alert("Image was removed");
-        })
-        .catch((err) => alert(`Error: ${err}`))
-        .catch((err) => alert(`Error: ${err}`))
-    );
-  };
+  // const deleteImage = (image) => {
+  //   Storage.remove(image.key).then((result) =>
+  //     deleteImageFromDb(image, jobid)
+  //       .then((res) => {
+  //         alert("Image was removed");
+  //       })
+  //       .catch((err) => alert(`Error: ${err}`))
+  //       .catch((err) => alert(`Error: ${err}`))
+  //   );
+  // };
 
-  const deleteAllJobImages = () => {
-    images && images.length > 0
-      ? images.forEach((image, i) => {
-          Storage.remove(image.key).then((result) =>
-            deleteImageFromDb(image, jobid)
-              .then((res) => {
-                alert("All images were removed");
-              })
-              .catch((err) => alert(`Delete from Database Error: ${err}`))
-              .catch((err) => alert(`Delete from Storage Error: ${err}`))
-          );
-        })
-      : alert("there are no images");
-  };
+  // const deleteAllJobImages = () => {
+  //   images && images.length > 0
+  //     ? images.forEach((image, i) => {
+  //         Storage.remove(image.key).then((result) =>
+  //           deleteImageFromDb(image, jobid)
+  //             .then((res) => {
+  //               alert("All images were removed");
+  //             })
+  //             .catch((err) => alert(`Delete from Database Error: ${err}`))
+  //             .catch((err) => alert(`Delete from Storage Error: ${err}`))
+  //         );
+  //       })
+  //     : alert("there are no images");
+  // };
 
   const imageList = images.map((image) => {
     const imageName = image.key.split("/")[2];
 
     return (
       <div className={classes.s3imageItem} key={image.id}>
-        <img alt={image.key} src={image.key} />
+        <img alt={image.key} src={image.url || image.key} className={classes.image} />
         {/* <AmplifyS3Image
           imgKey={image.key}
           className={classes.image}
@@ -254,7 +216,7 @@ const ImageAlbum = ({ jobid, images, setImages, adminApproved, jobNumber }) => {
           </Typography>
           {groups && !groups.includes("client") && (
             //revert below
-            // !adminApproved &&
+            
             <div className={classes.imageActions}>
               <Tooltip title="Download">
                 <IconButton
@@ -278,7 +240,7 @@ const ImageAlbum = ({ jobid, images, setImages, adminApproved, jobNumber }) => {
                   component="span"
                   onClick={() => {
                     deleteImage(image);
-                    setImages(images.filter((img) => img.key !== image.key));
+                    // setImages(images.filter((img) => img.key !== image.key));
                   }}
                 >
                   <DeleteSweepIcon

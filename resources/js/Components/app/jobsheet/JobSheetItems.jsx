@@ -88,70 +88,61 @@ const updateJob = async (job, jobid) => {
   // return await API.put(apiName, path, myInit);
 };
 
-const JobSheetItems = ({
-  job,
-  // jobid,
-  // setAdminApproved,
-  // setJobNumber,
-  // setJob,
-}) => {
+const JobSheetItems = ({ job }) => {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
   const [jobEdited, setJobEdited] = useState(false);
-  const [fetchingJob, setFetchingJob] = useState(true);
-  const [groups, setGroups] = useState(
-    // Auth.user.signInUserSession.accessToken.payload["cognito:groups"]
-  );
+  const [groups, setGroups] = useState([]);
 
-//   useEffect(() => {
-//   if (jobEdited) {
-//     updateJob(
-//       {
-//         timeOnSite: job.timeOnSite || null,
-//         timeOffSite: job.timeOffSite || null,
-//         agentId: job.agentId || null,
-//         driverId: job.driverId || null,
-//         vehicles: job.vehicles || null,
-//         districtId: job.districtId || null,
-//         locationId: job.locationId || null,
-//         remarks: job.remarks || null,
-//         dumpingLocation: job.dumpingLocation || null,
-//       },
-//       jobid
-//     )
-//       .then((rowsUpdated) => {
-//         fetchJob(jobid).then((j) => {
-//           if (j && Object.entries(j).length > 0) {
-//             setJob(j);
-//             alert("Job Changed");
-//           }
-//         });
-//       })
-//       .catch(() => alert("Unable to edit job"));
+  //   useEffect(() => {
+  //   if (jobEdited) {
+  //     updateJob(
+  //       {
+  //         timeOnSite: job.timeOnSite || null,
+  //         timeOffSite: job.timeOffSite || null,
+  //         agentId: job.agentId || null,
+  //         driverId: job.driverId || null,
+  //         vehicles: job.vehicles || null,
+  //         districtId: job.districtId || null,
+  //         locationId: job.locationId || null,
+  //         remarks: job.remarks || null,
+  //         dumpingLocation: job.dumpingLocation || null,
+  //       },
+  //       jobid
+  //     )
+  //       .then((rowsUpdated) => {
+  //         fetchJob(jobid).then((j) => {
+  //           if (j && Object.entries(j).length > 0) {
+  //             setJob(j);
+  //             alert("Job Changed");
+  //           }
+  //         });
+  //       })
+  //       .catch(() => alert("Unable to edit job"));
 
-//     setJobEdited(false);
-//   }
-// }, [jobEdited, job, jobid, updateJob, fetchJob, setJob]);
+  //     setJobEdited(false);
+  //   }
+  // }, [jobEdited, job, jobid, updateJob, fetchJob, setJob]);
 
   const handleApprove = (approveType) => {
-    updateJob(
-      {
-        [approveType]: 1,
-      },
-      jobid
-    )
-      .then((res) => {
-        res &&
-          res[0] === 1 &&
-          setJob({
-            ...job,
-            [approveType]: 1,
-          });
+    // updateJob(
+    //   {
+    //     [approveType]: 1,
+    //   },
+    //   jobid
+    // )
+    //   .then((res) => {
+    //     res &&
+    //       res[0] === 1 &&
+    //       setJob({
+    //         ...job,
+    //         [approveType]: 1,
+    //       });
 
-        approveType === "adminApproved" && setAdminApproved(true);
-      })
-      .catch(() => alert("Unable to edit job"));
+    //     approveType === "adminApproved" && setAdminApproved(true);
+    //   })
+    //   .catch(() => alert("Unable to edit job"));
   };
 
   // useEffect(() => {
@@ -164,15 +155,15 @@ const JobSheetItems = ({
   //     });
   // }, [jobid]);
 
-  useEffect(() => {
-    console.log(job)
+  // useEffect(() => {
+  //   console.log(job)
 
-    job && job.adminApproved && setAdminApproved(job.adminApproved);
+  //   job && job.adminApproved && setAdminApproved(job.adminApproved);
 
-    // job && setJobNumber(job.jobNumber);
+  //   // job && setJobNumber(job.jobNumber);
 
-    job && !job.deletedAt  && setFetchingJob(false)
-  }, [job]);
+  //   job && !job.deletedAt  && setFetchingJob(false)
+  // }, [job]);
 
   // format(new Date(2014, 1, 11), 'MM/dd/yyyy')
   //=> '02/11/2014'
@@ -303,21 +294,7 @@ const JobSheetItems = ({
     </>
   );
 
-  useEffect(() => {
-    console.log(fetchingJob)
-
-  }, [fetchingJob])
-
-
-  if (fetchingJob) {
-    return (
-      <>
-        <Typography color="secondary" variant="h6">Loading ...</Typography>
-        <CircularProgress color="secondary" />
-      </>
-    )
-  }
-  else return (
+  return (
     <div className={classes.root}>
       <EditJob
         open={open}

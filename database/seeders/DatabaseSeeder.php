@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Image;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -30,6 +31,15 @@ class DatabaseSeeder extends Seeder
             VehicleTypeSeeder::class,
 
             VehicleSeeder::class,
+
+            JobSiteSeeder::class,
+            JobDetailSeeder::class,
+            
+            JobVehicleSeeder::class,
+            DocumentUploadSeeder::class,
+            ImageSeeder::class,
+            DumpingLocationSheetNumberSeeder::class,
+
         ]);
 
     }

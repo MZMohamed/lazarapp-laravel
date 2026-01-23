@@ -49,14 +49,11 @@ const deleteSheetNumber = async (id) => {
   // await API.del(apiName, path, myInit);
 };
 
-const SheetNumbersList = ({ jobid, isEdited, setIsEdited }) => {
+const SheetNumbersList = ({ isEdited, setIsEdited, sheetNumbers }) => {
   const classes = useStyles();
-  const [groups, setGroups] = useState([]
-    // Auth.user.signInUserSession.accessToken.payload["cognito:groups"]
-  );
+  const [groups, setGroups] = useState([]);
 
   const [editOpen, setEditOpen] = useState(false);
-  const [sheetNumbers, setSheetNumbers] = useState([]);
 
   const [editingItem, setEditingItem] = useState({});
 

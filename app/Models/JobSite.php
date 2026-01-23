@@ -77,4 +77,14 @@ class JobSite extends Model
     {
         return $this->hasMany(JobDetail::class, 'jobId');
     }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'jobId');
+    }
+
+    function dumping_location_sheet_numbers()
+    {
+        return $this->hasMany(DumpingLocationSheetNumber::class, 'jobId');
+    }
 }

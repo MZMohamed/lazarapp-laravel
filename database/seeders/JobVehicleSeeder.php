@@ -57,6 +57,7 @@ class JobVehicleSeeder extends Seeder
             ['job_id' => 42, 'vehicle_id' => 43],
             ['job_id' => 48, 'vehicle_id' => 43],
             ['job_id' => 52, 'vehicle_id' => 43],
+            ['job_id' => 51, 'vehicle_id' => 53],
             ['job_id' => 54, 'vehicle_id' => 53],
             ['job_id' => 56, 'vehicle_id' => 53],
             ['job_id' => 57, 'vehicle_id' => 53],

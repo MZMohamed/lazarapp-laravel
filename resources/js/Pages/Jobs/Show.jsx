@@ -7,6 +7,7 @@ import PrintOptions from "@/Components/app/jobsheet/print/";
 import JobSheetItems from "@/Components/app/jobsheet/JobSheetItems";
 import DumpingLocation from "@/Components/app/jobsheet/dumpingLocation/";
 import Document from "@/Components/app/jobsheet/document";
+import ImageAlbum from "@/Components/app/jobsheet/ImageAlbum";
 
 // mui
 import { makeStyles } from "@material-ui/core/styles";
@@ -44,13 +45,11 @@ const useStyles = makeStyles((theme) => ({
 const Show = () => {
   const { job } = usePage().props;
   const classes = useStyles();
-    // used for printing state
+  // used for printing state
   const [printOption, setPrintOption] = useState(0);
-  
+
   const [showPdf, setShowPdf] = useState(false);
   const [pdf, setPdf] = useState("");
-
-  console.log('details', job);
 
   return (
     <div className={classes.root}>
@@ -89,23 +88,34 @@ const Show = () => {
           <JobSheetItems
             jobid={job.id}
             job={job}
-            // setJob={setJob}
-            // setAdminApproved={setAdminApproved}
-            // setJobNumber={setJobNumber}
+          // setJob={setJob}
+          // setAdminApproved={setAdminApproved}
+          // setJobNumber={setJobNumber}
           />
         </Grid>
 
         <Grid item xs={12} className="noPrint">
           <DumpingLocation
-            jobid={job.id}
             dumpingLocation={job.dumpingLocation}
+            dumpingLocationSheetNumbers={job.dumping_location_sheet_numbers}
           />
         </Grid>
 
+        
+          <Grid item xs={12} className="noPrint">
+            <ImageAlbum
+              jobid={job.id}
+              images={job.images}
+              // setImages={setImages}
+              adminApproved={job.adminApproved}
+              jobNumber={job.jobNumber}
+            />
+          </Grid>
+
         <Grid item xs={12}>
-          <JobSheetTable 
+          <JobSheetTable
             className="noPrint"
-            jobDetail={job.details} 
+            jobDetail={job.details}
           />
         </Grid>
 
@@ -148,15 +158,15 @@ const Show = () => {
             )}
           </Grid> */}
         </Grid>
-        
+
 
         <Grid item xs={12} className="noPrint">
-          <Document jobid={job.id} jobNumber={job.jobNumber}/>
+          <Document jobid={job.id} jobNumber={job.jobNumber} />
         </Grid>
 
       </Grid>
 
-      
+
     </div>
   )
 }
