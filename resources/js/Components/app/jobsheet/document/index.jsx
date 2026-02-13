@@ -20,10 +20,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Index = ({ jobid, jobNumber }) => {
+const Index = ({ job }) => {
   const classes = useStyles();
 
-  const [documents, setDocuments] = useState([]);
   const [isUpdated, setIsUpdated] = useState(false)
 
   return (
@@ -31,8 +30,8 @@ const Index = ({ jobid, jobNumber }) => {
       <Typography variant="h6" color="secondary">
         Documents
       </Typography>
-      <DocumentList jobid={jobid} documents={documents} setDocuments={setDocuments} isUpdated={isUpdated} setIsUpdated={setIsUpdated}/>
-      <DocumentActions jobid={jobid} jobNumber={jobNumber} setIsUpdated={setIsUpdated}/>
+      <DocumentList job={job} />
+      <DocumentActions jobid={job.id} jobNumber={job.jobNumber} setIsUpdated={setIsUpdated}/>
     </div>
   );
 };

@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DocumentActions = ({jobid, jobNumber, setIsUpdated}) => {
+const DocumentActions = ({job, setIsUpdated}) => {
   const classes = useStyles();
   const [groups, setGroups] = useState([]);
 
@@ -52,8 +52,8 @@ const DocumentActions = ({jobid, jobNumber, setIsUpdated}) => {
   const addButton = (groups.includes("admin") || groups.includes("driver")) && (
     <DocumentUpload
       className={classes.button}
-      jobNumber={jobNumber}
-      jobid={jobid}
+      jobNumber={job.jobNumber}
+      jobid={job.id}
       setIsUpdated={setIsUpdated}
     />
   );

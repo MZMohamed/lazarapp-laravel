@@ -42,27 +42,27 @@ const downloadBlob = (blob, filename) => {
   return a;
 }
 
-const DocumentList = ({ jobid, documents, setDocuments, isUpdated, setIsUpdated }) => {
+const DocumentList = ({ job }) => {
   const classes = useStyles();
   const [groups, setGroups] = useState([]);
 
   // useEffect(() => {
-  //   jobid &&
-  //     fetchDocuments(jobid)
+  //   job.id &&
+  //     fetchDocuments(job.id)
   //       .then((res) => {
   //         setDocuments(res);
   //         isUpdated && setIsUpdated(false)
   //       })
   //       .catch((err) => alert(`Error fetching documents: ${err}`));
-  // }, [jobid, isUpdated]);
+  // }, [job.id, isUpdated]);
 
   const handleRowDelete = (doc) => (event) => {
     Storage.remove(doc.key)
       .then(() =>
         deleteDocFromDb(doc.id)
           .then(() => {
-            jobid &&
-              fetchDocuments(jobid)
+            job.id &&
+              fetchDocuments(job.id)
                 .then((res) => {
                   setDocuments(res);
                 })
@@ -74,7 +74,7 @@ const DocumentList = ({ jobid, documents, setDocuments, isUpdated, setIsUpdated 
       .catch((err) => console.log(err));
   };
 
-  const docList = documents.map((doc) => {
+  const docList = job.document_uploads.map((doc) => {
 
     const documentName =
       doc.key.length > 0 ? doc.key.split("/")[2] : "No Document";
@@ -117,11 +117,11 @@ const DocumentList = ({ jobid, documents, setDocuments, isUpdated, setIsUpdated 
 
   return (
     <>
-      {documents && (
+      {job.document_uploads && (
 
         <div className={classes.root}>
           <List aria-label="documents">
-            {documents.length > 0 ? docList : emptyDocList}
+            {job.document_uploads.length > 0 ? docList : emptyDocList}
           </List>
         </div>
       )}

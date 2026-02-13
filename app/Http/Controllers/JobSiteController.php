@@ -78,7 +78,8 @@ class JobSiteController extends Controller
     public function show(string $id)
     {
 
-        $job = JobSite::with('details', 'images', 'dumping_location_sheet_numbers')->findOrFail($id);
+        $job = JobSite::with('details', 'images', 'dumping_location_sheet_numbers', 'document_uploads')
+            ->findOrFail($id);
 
         return Inertia::render('Jobs/Show',[
             'job' => $job,

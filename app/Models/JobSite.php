@@ -87,4 +87,9 @@ class JobSite extends Model
     {
         return $this->hasMany(DumpingLocationSheetNumber::class, 'jobId');
     }
+
+    function document_uploads()
+    {
+        return $this->hasMany(DocumentUpload::class, 'jobId');
+    }
 }

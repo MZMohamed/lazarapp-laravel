@@ -161,7 +161,7 @@ const Show = () => {
 
 
         <Grid item xs={12} className="noPrint">
-          <Document jobid={job.id} jobNumber={job.jobNumber} />
+          <Document job={job} />
         </Grid>
 
       </Grid>
